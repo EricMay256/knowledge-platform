@@ -3,7 +3,7 @@ Type: Agent Note
 Status: Active
 CreatedAt: 2026-06-26T02:30:27.980744+00:00
 LastUpdated: 2026-06-30T16:36:15Z
-Tags:
+tags:
   - netcode
   - determinism
   - procgen

@@ -4,6 +4,12 @@ Short, load-bearing rules for working **on this engine**. Full narrative and rat
 in [HANDOFF.md](HANDOFF.md) and `specs/`. This is **Stage A** (the free tier): git + markdown
 + crude string/title dedup. Stage B2 (paid) swaps the storage + dedup behind the same ports.
 
+> **Two packages, one job each.** `vault_contrib` = contributions INTO `Agent/notes`
+> (validate → dedup → decide → write). `vault_governance` = metadata correctness ACROSS the
+> whole `Vault/` (inheritance → validation → linting → ai/* policy). The governance package
+> reuses only `vault_frontmatter` from here; **do not merge it into `vault_contrib`** — keeping
+> it separate is what protects the B2 seams. See `specs/vault-governance.md`.
+
 ## The one rule that must not break: keep the seams
 The package is split along a ports-vs-throwaway line, and **that split is the B2 migration
 plan** (HANDOFF §3):
@@ -31,8 +37,10 @@ plan** (HANDOFF §3):
 
 ## Note schema (frozen — change here AND the skill together)
 Agent notes follow the human vault's governance (`00 Governance/Metadata Standard.md`,
-type `Agent Note`). Frontmatter keys: governance-standard TitleCase (`Type`, `Status`
-[`Active`/`Flagged`], `CreatedAt`, `LastUpdated`, `Tags`) plus engine plumbing (lowercase).
+type `Agent Note`). Frontmatter keys are PascalCase (`Type`, `Status` [`Active`/`Flagged`],
+`CreatedAt`, `LastUpdated`, `Title`, `ID`, `ContributedBy`, `Source`, `RelatedIDs`,
+`ClientRunID`, `SchemaVersion`) — except the Obsidian-reserved `tags`/`aliases`/`cssclasses`,
+which stay lowercase. (Python field / CLI names below are unchanged.)
 Settable: `title`, `body`, `contributed_by`, `tags` (non-empty, no dups), `source` (optional),
 `client_run_id` (optional idempotency key — reuse on retries to make them no-ops).
 Engine-owned, never set by a caller: `id`, `created_at`/`updated_at`, `status`, `note_type`,

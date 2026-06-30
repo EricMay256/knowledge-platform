@@ -31,8 +31,10 @@ plan** (HANDOFF §3):
 
 ## Note schema (frozen — change here AND the skill together)
 Agent notes follow the human vault's governance (`00 Governance/Metadata Standard.md`,
-type `Agent Note`). Frontmatter keys: governance-standard TitleCase (`Type`, `Status`
-[`Active`/`Flagged`], `CreatedAt`, `LastUpdated`, `Tags`) plus engine plumbing (lowercase).
+type `Agent Note`). Frontmatter keys are PascalCase (`Type`, `Status` [`Active`/`Flagged`],
+`CreatedAt`, `LastUpdated`, `Title`, `ID`, `ContributedBy`, `Source`, `RelatedIDs`,
+`ClientRunID`, `SchemaVersion`) — except the Obsidian-reserved `tags`/`aliases`/`cssclasses`,
+which stay lowercase. (Python field / CLI names below are unchanged.)
 Settable: `title`, `body`, `contributed_by`, `tags` (non-empty, no dups), `source` (optional),
 `client_run_id` (optional idempotency key — reuse on retries to make them no-ops).
 Engine-owned, never set by a caller: `id`, `created_at`/`updated_at`, `status`, `note_type`,

@@ -14,22 +14,25 @@ import yaml
 
 # Governance-standard keys first (human Metadata Standard order), then the
 # engine-owned plumbing the Agent Note type documents as "do not edit".
+# All property keys are PascalCase per the Metadata Standard, except the three
+# Obsidian-reserved keys (`tags`, `aliases`, `cssclasses`) which must stay
+# lowercase for Obsidian's native handling.
 SCHEMA_ORDER = [
     "Type",
     "Status",
     "CreatedAt",
     "LastUpdated",
-    "Tags",
-    "title",
-    "id",
-    "contributed_by",
-    "source",
-    "related_ids",
-    "client_run_id",
-    "schema_version",
+    "tags",
+    "Title",
+    "ID",
+    "ContributedBy",
+    "Source",
+    "RelatedIDs",
+    "ClientRunID",
+    "SchemaVersion",
 ]
 
-LIST_FIELDS = {"Tags", "related_ids"}
+LIST_FIELDS = {"tags", "RelatedIDs"}
 
 
 class _VaultLoader(yaml.SafeLoader):
@@ -105,16 +108,23 @@ def _render_pair(key: str, value: Any) -> str:
     return f"{key}:" if rendered == "" else f"{key}: {rendered}"
 
 
-def render_frontmatter(meta: dict[str, Any]) -> str:
-    """Render metadata to canonical YAML, without surrounding delimiters."""
-    keys = [key for key in SCHEMA_ORDER if key in meta]
-    keys += sorted(key for key in meta if key not in SCHEMA_ORDER)
+def render_frontmatter(meta: dict[str, Any], order: list[str] | None = None) -> str:
+    """Render metadata to canonical YAML, without surrounding delimiters.
+
+    `order` lists the keys that should come first, in that order; any remaining
+    keys are appended alphabetically. Defaults to the Agent-note SCHEMA_ORDER so
+    existing callers are unaffected; the governance linter passes a Human-note
+    order instead.
+    """
+    order = SCHEMA_ORDER if order is None else order
+    keys = [key for key in order if key in meta]
+    keys += sorted(key for key in meta if key not in order)
     return "\n".join(_render_pair(key, meta[key]) for key in keys)
 
 
-def dump_note(meta: dict[str, Any], body: str) -> str:
+def dump_note(meta: dict[str, Any], body: str, order: list[str] | None = None) -> str:
     """Serialize metadata and body into a full markdown note."""
-    frontmatter = render_frontmatter(meta)
+    frontmatter = render_frontmatter(meta, order)
     body = body if body.endswith("\n") or body == "" else body + "\n"
     return f"---\n{frontmatter}\n---\n{body}"
 

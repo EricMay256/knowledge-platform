@@ -1,0 +1,89 @@
+# Machine-readable counterpart to `Type Dictionary.md` + `Status Map.md`.
+#
+# Each type carries:
+#   folder_globs : vault-root-relative globs where notes of this type live.
+#   statuses     : the Status Map values valid for the type ([] = no lifecycle).
+#   required     : type-specific properties the validator EXPECTS (warning if
+#                  missing). Deliberately conservative — most type-specific
+#                  properties are `recommended`, not `required`, because the
+#                  current vault predates them. Promote to `required` once the
+#                  back-catalogue is cleaned.
+#   recommended  : nice-to-have type-specific properties (info-level, no warning).
+#   aliases      : drifted/observed spellings the validator maps back to this
+#                  type, used to produce "did you mean <Type>?" suggestions.
+#
+# NOTE: standardized on the SINGULAR `Concept` (Status Map already used it; the
+# Type Dictionary's plural `Concepts` was reconciled to match).
+
+types:
+  Daily:
+    folder_globs: ["Human/02 Daily/**"]
+    statuses: [Logged]
+    aliases: ["Daily Note"]
+
+  Project:
+    folder_globs: ["Human/03 Projects/**"]
+    statuses: [Planned, Active, Blocked, Complete, Inactive, Cancelled]
+    recommended: [Priority, Goal, Area, SourceRepository, Owner, Collaborators]
+
+  Area:
+    folder_globs: ["Human/04 Areas/**"]
+    statuses: [Active, On Hold, Archived]
+    recommended: [Mission]
+
+  Decision:
+    folder_globs: ["Human/05 Decisions/**"]
+    statuses: [Proposed, Accepted, Superceded]
+    recommended: [Outcome, Date, Context, Alternatives, Consequences]
+
+  Reference:
+    folder_globs: ["Human/06 Reference/**"]
+    statuses: [Draft, Completed, Deprecated]
+    recommended: [Subtype]
+    aliases: [Runbook]
+
+  Person:
+    folder_globs: ["Human/07 People/**"]
+    statuses: [Coworker, Former Coworker, Prospective Coworker, Recruiter,
+               Mentor, Mentee, Acquaintance, Friend, Family]
+    recommended: [Role, Organization, ContactInfo]
+
+  Resource:
+    folder_globs: ["Human/08 Resources/**"]
+    statuses: [To Read, Reading, Read, Archived]
+    recommended: [Subtype, URL, Author, Publisher, Organization]
+
+  System:
+    folder_globs: ["Human/09 Systems/**"]
+    statuses: []
+    recommended: [Purpose, Components, Interfaces, Owner]
+    aliases: [Services, Service]
+
+  Concept:
+    folder_globs: ["Human/17 Concepts/**"]
+    statuses: [Seed, Draft, Evergreen, Archived]
+    recommended: [Domain, ParentConcept]
+    aliases: [Concepts, Evergreen]
+
+  Summary Note:
+    folder_globs: []
+    statuses: []
+    recommended: [Source, Author, Published, URL, DateRead]
+
+  Meeting:
+    folder_globs: []
+    statuses: [Scheduled, Held, Cancelled]
+    recommended: [Date, Attendees, Location, Organizer]
+
+  Idea:
+    folder_globs: []
+    statuses: [New, Investigating, Promoted, Rejected]
+    recommended: [Confidence]
+
+  Agent Note:
+    folder_globs: ["Agent/notes/**", "Agent/review/**"]
+    statuses: [Active, Flagged]
+    # Engine-owned; ENFORCED (error-level) because the contribution engine
+    # always writes these. See vault_governance.validate._check_agent_note.
+    required: [Title, ID, ContributedBy, SchemaVersion]
+    recommended: [Source, RelatedIDs, ClientRunID]

@@ -17,9 +17,10 @@ dev = ["pytest>=8.0"]
 # cwd'd into this repo. `python -m vault_contrib.cli` keeps working too.
 [project.scripts]
 vault-contrib = "vault_contrib.cli:main"
+vault-governance = "vault_governance.cli:main"
 
 [tool.setuptools]
-packages = ["vault_contrib"]
+packages = ["vault_contrib", "vault_governance"]
 
 [tool.pytest.ini_options]
 # Put the repo root on sys.path so tests can `import vault_contrib` without an

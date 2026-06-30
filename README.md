@@ -58,6 +58,22 @@ python -m vault_contrib.cli index    # writes Agent/INDEX.md (gitignored)
 The `knowledge-vault` skill (`engine/.claude/skills/`) wraps this for agents; deployed copies
 are kept in sync by `engine/scripts/sync_skill.py`.
 
+## Governance enforcement
+
+The `vault_governance` package (beside `vault_contrib`) enforces metadata correctness across the
+whole vault — **property inheritance, schema validation, and metadata linting** — driven by
+machine-readable schemas in `Vault/00 Governance/Schemas/` that mirror the prose governance docs.
+
+```bash
+cd engine
+python -m vault_governance.cli validate --vault ../Vault      # schema/policy (exits 1 on error)
+python -m vault_governance.cli lint     --vault ../Vault --fix # normalize Agent/non-canonical notes
+python -m vault_governance.cli check-policy --base origin/master --head HEAD   # gate ai/* branches
+```
+
+CI (`.github/workflows/vault-governance.yml`) runs these on every push/PR; local git hooks live
+in `.githooks/` (`git config core.hooksPath .githooks`). Details: `engine/specs/vault-governance.md`.
+
 ## Sync & remote (operator setup)
 
 This repo was consolidated from three earlier repos (the published Obsidian vault, the engine,

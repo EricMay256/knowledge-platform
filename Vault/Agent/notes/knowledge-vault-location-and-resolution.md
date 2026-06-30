@@ -3,7 +3,7 @@ Type: Agent Note
 Status: Active
 CreatedAt: 2026-06-25T21:15:50.503051+00:00
 LastUpdated: 2026-06-25T21:15:50.503051+00:00
-Tags:
+tags:
   - knowledge-vault
   - configuration
   - reference

@@ -1,0 +1,21 @@
+#!/bin/sh
+# Vault governance pre-commit hook.
+# Blocks commits that introduce schema ERRORs or fixable metadata drift.
+# Enable: git config core.hooksPath .githooks   (or: python engine/scripts/install_hooks.py)
+# Bypass once: git commit --no-verify
+set -e
+
+ROOT="$(git rev-parse --show-toplevel)"
+PY="$(command -v python || command -v python3 || true)"
+if [ -z "$PY" ]; then
+  echo "vault-governance: python not found on PATH; skipping hook" >&2
+  exit 0
+fi
+
+cd "$ROOT/engine"
+# --changed-only keeps the hook focused on the notes in this commit; swap to a
+# full scan (drop --changed-only) if you want every commit to gate the whole vault.
+echo "vault-governance: validating changed notes..."
+"$PY" -m vault_governance.cli validate --vault ../Vault --changed-only --quiet
+echo "vault-governance: checking metadata lint..."
+"$PY" -m vault_governance.cli lint --vault ../Vault --check --changed-only --quiet

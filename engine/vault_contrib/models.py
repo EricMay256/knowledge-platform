@@ -93,46 +93,54 @@ class Note:
     def to_metadata(self) -> dict:
         """Everything except the body. Becomes frontmatter now, columns in B2.
 
-        Governance-standard keys (Type, Status, CreatedAt, LastUpdated, Tags) are
-        TitleCase to match the human vault's Metadata Standard; engine-owned
-        plumbing (title, id, contributed_by, source, related_ids, client_run_id,
-        schema_version) is documented under the Agent Note type as "do not edit".
+        All property keys are PascalCase per the Metadata Standard (Type, Status,
+        CreatedAt, LastUpdated, Title, ID, ContributedBy, Source, RelatedIDs,
+        ClientRunID, SchemaVersion); the sole exception is `tags`, one of the
+        three Obsidian-reserved keys that must stay lowercase.
         """
         return {
             "Type": self.note_type,
             "Status": self.status,
             "CreatedAt": self.created_at,
             "LastUpdated": self.updated_at,
-            "Tags": self.tags,
-            "title": self.title,
-            "id": self.id,
-            "contributed_by": self.contributed_by,
-            "source": self.source,
-            "related_ids": self.related_ids,
-            "client_run_id": self.client_run_id,
-            "schema_version": self.schema_version,
+            "tags": self.tags,
+            "Title": self.title,
+            "ID": self.id,
+            "ContributedBy": self.contributed_by,
+            "Source": self.source,
+            "RelatedIDs": self.related_ids,
+            "ClientRunID": self.client_run_id,
+            "SchemaVersion": self.schema_version,
         }
 
     @classmethod
     def from_parts(cls, metadata: dict, body: str) -> "Note":
-        # Read the governance-standard keys, tolerating the pre-migration
-        # lowercase keys (created_at/tags/status) so a stray legacy note still
-        # loads. created_at falls back for LastUpdated when older notes lack it.
-        created = metadata.get("CreatedAt") or metadata.get("created_at") or _now_iso()
+        # Read PascalCase keys, tolerating every prior spelling so older notes
+        # still load: the pre-PascalCase lowercase plumbing (id/title/...), the
+        # lowercase governance keys (created_at/status), and `Tags` before it
+        # became reserved-lowercase `tags`. created_at falls back for LastUpdated.
+        def first(*names, default=None):
+            for n in names:
+                v = metadata.get(n)
+                if v is not None:
+                    return v
+            return default
+
+        created = first("CreatedAt", "created_at", default=_now_iso())
         return cls(
-            id=metadata["id"],
-            title=metadata["title"],
+            id=first("ID", "id"),
+            title=first("Title", "title"),
             body=body,
-            contributed_by=metadata.get("contributed_by", "unknown"),
+            contributed_by=first("ContributedBy", "contributed_by", default="unknown"),
             created_at=created,
-            updated_at=metadata.get("LastUpdated") or metadata.get("updated_at") or created,
-            tags=list(metadata.get("Tags") or metadata.get("tags") or []),
-            source=metadata.get("source"),
-            related_ids=list(metadata.get("related_ids") or []),
-            status=metadata.get("Status") or metadata.get("status") or "Active",
-            note_type=metadata.get("Type") or metadata.get("note_type") or AGENT_NOTE_TYPE,
-            client_run_id=metadata.get("client_run_id"),
-            schema_version=metadata.get("schema_version", SCHEMA_VERSION),
+            updated_at=first("LastUpdated", "updated_at", default=created),
+            tags=list(first("tags", "Tags", default=[])),
+            source=first("Source", "source"),
+            related_ids=list(first("RelatedIDs", "related_ids", default=[])),
+            status=first("Status", "status", default="Active"),
+            note_type=first("Type", "note_type", default=AGENT_NOTE_TYPE),
+            client_run_id=first("ClientRunID", "client_run_id"),
+            schema_version=first("SchemaVersion", "schema_version", default=SCHEMA_VERSION),
         )
 
 

@@ -3,7 +3,7 @@ Type: Agent Note
 Status: Active
 CreatedAt: 2026-06-26T02:31:13.674255+00:00
 LastUpdated: 2026-06-30T16:36:16Z
-Tags:
+tags:
   - mcp
   - unity
   - editor-tooling

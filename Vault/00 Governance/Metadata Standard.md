@@ -19,7 +19,9 @@ LastUpdated: 2026-06-30T16:36:10Z
 | DependsOn   | List\<WikiLink> | Wikilinked Notes                                 | All Notes                          | No                        |
 | SeeAlso     | List\<WikiLink> | Wikilinked Notes                                 | All Notes                          | No                        |
 
-Note that Obsidian defined properties 'tags' and 'aliases' are not capitalized.
+Property keys are **PascalCase** by convention. The exceptions are the three Obsidian-reserved
+keys — `tags`, `aliases`, and `cssclasses` — which stay lowercase so Obsidian's native handling
+recognizes them.
 
 ### Type Specific Properties
 
@@ -111,7 +113,7 @@ Some properties are held by only some Types
 | ---------- | ---- | -------------- | --------- |
 | Confidence |      |                |           |
 
-#### Concepts
+#### Concept
 
 | Property      | Type | Allowed Values | Required? |
 | ------------- | ---- | -------------- | --------- |
@@ -121,20 +123,43 @@ Some properties are held by only some Types
 #### Agent Note
 
 `Agent/` notes carry the universal properties above (`Type: Agent Note`, `Status`,
-
-`CreatedAt`, `LastUpdated`, `Tags`) **plus** engine-owned plumbing written and read by the
-
+`CreatedAt`, `LastUpdated`, `tags`) **plus** engine-owned plumbing written and read by the
 contribution engine. These are **not hand-edited** — the engine assigns and maintains them.
 
-| Property       | Type          | Allowed Values        | Required? | Notes                                            |
-| -------------- | ------------- | --------------------- | --------- | ------------------------------------------------ |
-| title          | String        | Freeform              | Yes       | The dedup key in Stage A; mirrored by the filename slug. |
-| id             | String (hex)  | Engine-assigned       | Yes       | Stable identity; never edit.                     |
-| contributed_by | String        | `agent:<id>` / `human:<name>` | Yes | Namespaced provenance; both are first-class.     |
-| source         | String        | URL or run id         | No        | Provenance.                                      |
-| related_ids    | List\<String> | Engine-assigned ids   | No        | Links surfaced by dedup/linking.                 |
-| client_run_id  | String        | Freeform              | No        | Idempotency key; reuse makes a retry a no-op.    |
-| schema_version | Integer       | Engine-assigned       | Yes       | Current: 2.                                      |
+| Property      | Type          | Allowed Values        | Required? | Notes                                            |
+| ------------- | ------------- | --------------------- | --------- | ------------------------------------------------ |
+| Title         | String        | Freeform              | Yes       | The dedup key in Stage A; mirrored by the filename slug. |
+| ID            | String (hex)  | Engine-assigned       | Yes       | Stable identity; never edit.                     |
+| ContributedBy | String        | `agent:<id>` / `human:<name>` | Yes | Namespaced provenance; both are first-class.     |
+| Source        | String        | URL or run id         | No        | Provenance.                                      |
+| RelatedIDs    | List\<String> | Engine-assigned ids   | No        | Links surfaced by dedup/linking.                 |
+| ClientRunID   | String        | Freeform              | No        | Idempotency key; reuse makes a retry a no-op.    |
+| SchemaVersion | Integer       | Engine-assigned       | Yes       | Current: 2.                                      |
 
-> The keys above are intentionally lowercase to mark them as engine plumbing, visually
-> distinct from the curated TitleCase universal properties. Leave them alone in Obsidian.
+> All property keys are **PascalCase**, including this engine plumbing. The only exceptions are
+> the three Obsidian-reserved keys — `tags`, `aliases`, `cssclasses` — which stay lowercase so
+> Obsidian's native handling recognizes them. The plumbing above is engine-owned: leave it
+> alone in Obsidian.
+
+### Known non-standard / legacy keys
+
+Notes predating this standard use some keys that are not (yet) part of it. The governance
+validator recognizes them and suggests the canonical equivalent rather than reporting a blunt
+"unknown property". Prefer the canonical key in new notes.
+
+| Observed key            | Status        | Canonical equivalent                          |
+| ----------------------- | ------------- | --------------------------------------------- |
+| `Tags`                  | legacy casing | `tags` (Obsidian-reserved, lowercase)         |
+| `Aliases`               | legacy casing | `aliases` (Obsidian-reserved, lowercase)      |
+| `Review Freq`           | legacy casing | `ReviewFreq`                                  |
+| lowercase plumbing (`id`, `title`, `schema_version`, …) | legacy casing | PascalCase (`ID`, `Title`, `SchemaVersion`, …) |
+| `Related`, `Links`      | non-standard  | `SeeAlso` (or `DependsOn` / `Parent`)         |
+| `Category`              | non-standard  | `Subtype` (Reference/Resource) — no universal eq. |
+| `Owner/Collaborators`   | non-standard  | `Owner` + `Collaborators` (separate keys)     |
+
+### Machine-readable schema
+
+This document is mirrored by machine-readable schemas under `00 Governance/Schemas/`
+(`global.yml`, `types.yml`, `folders.yml`), consumed by the `vault_governance` engine package
+for inheritance, validation, and linting. When you change a rule here, update the matching
+schema file in the same commit. See `00 Governance/Schemas/README.md`.

@@ -3,7 +3,7 @@ Type: Agent Note
 Status: Active
 CreatedAt: 2026-06-26T02:29:54.805811+00:00
 LastUpdated: 2026-06-26T02:29:54.805811+00:00
-Tags:
+tags:
   - unity
   - editor-tooling
   - scriptableobject
