@@ -1,0 +1,30 @@
+# === Python (engine/) ===
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+.venv/
+venv/
+env/
+
+# === Claude / local tooling ===
+**/.claude/settings.local.json
+
+# === Obsidian (vault) ===
+# Keep .obsidian config tracked (plugins, appearance) so settings sync; ignore
+# only the per-session workspace state that churns constantly.
+Obsidian Vault/.obsidian/workspace.json
+Obsidian Vault/.obsidian/workspace-mobile.json
+.trash/
+
+# Engine-derived browsable index — regenerate with `vault-contrib index`.
+Obsidian Vault/Agent/INDEX.md
+
+# === Syncthing ===
+.stfolder/
+
+# === OS / editor ===
+.DS_Store
+Thumbs.db

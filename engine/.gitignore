@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Build artifacts
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Knowledge vault data — the vault is its OWN git repo (git is its audit log),
+# so this outer repo must never track it (otherwise it lands as an embedded-repo
+# gitlink). Ignores the skill's default in-tree location; if you set
+# KNOWLEDGE_VAULT elsewhere, keep the vault outside this tree instead.
+/vault/
+
+# OS / editor
+.DS_Store
+Thumbs.db

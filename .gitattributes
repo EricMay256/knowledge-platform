@@ -1,0 +1,7 @@
+# Normalize line endings so the markdown frontmatter parser and diffs stay stable
+# across editors (Obsidian, VS Code) and the engine's auto-commits.
+* text=auto eol=lf
+*.md text eol=lf
+*.py text eol=lf
+*.png binary
+*.pdf binary

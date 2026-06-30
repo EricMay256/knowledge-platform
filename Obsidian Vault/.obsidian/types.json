@@ -1,0 +1,15 @@
+{
+  "types": {
+    "aliases": "aliases",
+    "cssclasses": "multitext",
+    "tags": "tags",
+    "Last Updated": "date",
+    "Related": "multitext",
+    "Links": "multitext",
+    "Owner/Collaborators": "multitext",
+    "CreatedAt": "datetime",
+    "LastUpdated": "datetime",
+    "Date Read": "date",
+    "Date": "date"
+  }
+}

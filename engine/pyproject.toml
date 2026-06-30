@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentic-knowledge-vault"
+version = "0.1.0"
+description = "Agent-contributed knowledge vault (Stage A: git + string-match dedup)"
+requires-python = ">=3.10"
+dependencies = ["pyyaml>=6.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+# Console script so the engine runs from any directory once installed
+# (`pip install -e .`) -- the free product's onboarding shouldn't require being
+# cwd'd into this repo. `python -m vault_contrib.cli` keeps working too.
+[project.scripts]
+vault-contrib = "vault_contrib.cli:main"
+
+[tool.setuptools]
+packages = ["vault_contrib"]
+
+[tool.pytest.ini_options]
+# Put the repo root on sys.path so tests can `import vault_contrib` without an
+# install step.
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-ra"
