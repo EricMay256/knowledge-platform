@@ -9,7 +9,7 @@ Two senses of inheritance, both non-destructive:
    never sees these fields; they are computed on read.
 
 2. Parent-chain properties (`resolve_inherited_properties`): a note with
-   ``Parent: [[X]]`` inherits designated properties (e.g. the union of Tags)
+   ``Parent: [[X]]`` inherits designated properties (e.g. the union of tags)
    from its parents. Used to surface "child contradicts/duplicates parent"
    rather than to rewrite notes. The current vault uses `Related` far more than
    `Parent`, so this mostly matters going forward.
@@ -23,10 +23,10 @@ from typing import Any
 
 from .schema import FolderRule, GovernanceSchema
 
-# Properties a child note inherits from its Parent chain. Tags accumulate
+# Properties a child note inherits from its Parent chain. tags accumulate
 # (union); the rest are single-valued and taken from the nearest parent that
 # sets them. Conservative on purpose.
-INHERITABLE_UNION = ("Tags",)
+INHERITABLE_UNION = ("tags",)
 INHERITABLE_SINGLE = ("Area", "Domain", "ReviewFreq")
 
 _WIKILINK_RE = re.compile(r"\[\[([^\]|#]+)")
@@ -113,7 +113,7 @@ def resolve_inherited_properties(
         if pmeta is None:
             continue
         for key in INHERITABLE_UNION:
-            for v in _as_list(pmeta.get(key)):
+            for v in _property_values(pmeta, key):
                 if v not in union[key]:
                     union[key].append(v)
         for key in INHERITABLE_SINGLE:
@@ -132,16 +132,19 @@ def effective_properties(
     parents_by_title: dict[str, dict[str, Any]],
 ) -> dict[str, Any]:
     """A note's own properties overlaid on what it inherits (explicit wins;
-    Tags are unioned). Read-time view only."""
+    tags are unioned). Read-time view only."""
     inherited = resolve_inherited_properties(meta, parents_by_title)
     eff = dict(inherited)
+    union_aliases = {k.lower(): k for k in INHERITABLE_UNION}
     for key, val in meta.items():
-        if key in INHERITABLE_UNION:
-            merged = list(inherited.get(key, []))
+        key_lower = key.lower()
+        if key_lower in union_aliases:
+            canonical_key = union_aliases[key_lower]
+            merged = list(inherited.get(canonical_key, []))
             for v in _as_list(val):
                 if v not in merged:
                     merged.append(v)
-            eff[key] = merged
+            eff[canonical_key] = merged
         elif val not in (None, "", []):
             eff[key] = val
     return eff
@@ -151,3 +154,13 @@ def _as_list(val: Any) -> list:
     if val is None:
         return []
     return list(val) if isinstance(val, (list, tuple)) else [val]
+
+
+def _property_values(meta: dict[str, Any], key: str) -> list:
+    values = _as_list(meta.get(key))
+    for existing_key, existing_val in meta.items():
+        if existing_key != key and existing_key.lower() == key:
+            for value in _as_list(existing_val):
+                if value not in values:
+                    values.append(value)
+    return values

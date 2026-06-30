@@ -50,27 +50,27 @@ def test_parent_links_parses_wikilinks():
 
 def test_inherited_properties_union_tags_and_single_domain():
     parents = {
-        "Root": {"Tags": ["a", "b"], "Domain": "Backend"},
-        "Mid": {"Tags": ["b", "c"], "Parent": ["[[Root]]"]},
+        "Root": {"tags": ["a", "b"], "Domain": "Backend"},
+        "Mid": {"tags": ["b", "c"], "Parent": ["[[Root]]"]},
     }
-    child = {"Tags": ["c", "d"], "Parent": ["[[Mid]]"]}
+    child = {"tags": ["c", "d"], "Parent": ["[[Mid]]"]}
     inh = resolve_inherited_properties(child, parents)
-    assert set(inh["Tags"]) == {"a", "b", "c"}   # unioned across the chain, child excluded
+    assert set(inh["tags"]) == {"a", "b", "c"}   # unioned across the chain, child excluded
     assert inh["Domain"] == "Backend"            # nearest-setting ancestor
 
 
 def test_inheritance_is_cycle_safe():
     parents = {
-        "A": {"Tags": ["x"], "Parent": ["[[B]]"]},
-        "B": {"Tags": ["y"], "Parent": ["[[A]]"]},
+        "A": {"tags": ["x"], "Parent": ["[[B]]"]},
+        "B": {"tags": ["y"], "Parent": ["[[A]]"]},
     }
     inh = resolve_inherited_properties({"Parent": ["[[A]]"]}, parents)
-    assert set(inh["Tags"]) == {"x", "y"}  # terminates despite the A<->B cycle
+    assert set(inh["tags"]) == {"x", "y"}  # terminates despite the A<->B cycle
 
 
 def test_effective_properties_explicit_wins_tags_union():
-    parents = {"P": {"Tags": ["p"], "Domain": "D"}}
-    child = {"Tags": ["c"], "Domain": "Own", "Parent": ["[[P]]"]}
+    parents = {"P": {"tags": ["p"], "Domain": "D"}}
+    child = {"tags": ["c"], "Domain": "Own", "Parent": ["[[P]]"]}
     eff = effective_properties(child, parents)
-    assert set(eff["Tags"]) == {"p", "c"}
+    assert set(eff["tags"]) == {"p", "c"}
     assert eff["Domain"] == "Own"
