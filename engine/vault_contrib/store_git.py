@@ -101,7 +101,7 @@ class GitMarkdownStore:
         self.notes_dir.mkdir(parents=True, exist_ok=True)
         self.review_dir.mkdir(parents=True, exist_ok=True)
         # Only initialize a repo when the vault is NOT already inside one. When
-        # the vault lives under a larger repo (e.g. Obsidian Vault/Agent inside
+        # the vault lives under a larger repo (e.g. Vault/Agent inside
         # the knowledge-platform monorepo), initializing here would create a
         # nested repo; instead we let git auto-commit against the enclosing repo.
         if init_if_missing and self._enclosing_git_root() is None:

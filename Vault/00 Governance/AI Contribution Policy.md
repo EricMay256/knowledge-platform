@@ -59,7 +59,7 @@ files in `Agent/notes/`. Every contribution passes one gate: **validate → dedu
 write**, so the vault does not accrete near-duplicates.
 
 - Point the engine at this layer: set `KNOWLEDGE_VAULT` to
-  `<repo>/Obsidian Vault/Agent`, or pass `--vault "<repo>/Obsidian Vault/Agent"`.
+  `<repo>/Vault/Agent`, or pass `--vault "<repo>/Vault/Agent"`.
 - Retrieve before contributing: grep `Agent/notes/`, or `list --tag <tag>` / `index`.
 - Contribute: `python -m vault_contrib.cli contribute --by agent:<id> --title … --body …`.
 - Agent notes follow the [[Metadata Standard]] (`Type: Agent Note`) and are flat +

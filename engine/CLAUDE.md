@@ -39,9 +39,9 @@ Engine-owned, never set by a caller: `id`, `created_at`/`updated_at`, `status`, 
 `related_ids`, `schema_version` (currently 2).
 
 ## Vault location
-The Agent layer lives **inside the knowledge-platform monorepo** at `Obsidian Vault/Agent/`
+The Agent layer lives **inside the knowledge-platform monorepo** at `Vault/Agent/`
 (siblings `notes/`, `review/`, `Promotion Candidates/`). Point the engine there via
-`$KNOWLEDGE_VAULT=<repo>/Obsidian Vault/Agent` or `--vault`; the CLI still falls back to
+`$KNOWLEDGE_VAULT=<repo>/Vault/Agent` or `--vault`; the CLI still falls back to
 `~/knowledge-vault` when neither is set. The store is **monorepo-aware**: it auto-commits
 against the enclosing repo and never inits a nested one.
 

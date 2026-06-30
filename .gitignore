@@ -15,12 +15,12 @@ env/
 # === Obsidian (vault) ===
 # Keep .obsidian config tracked (plugins, appearance) so settings sync; ignore
 # only the per-session workspace state that churns constantly.
-Obsidian Vault/.obsidian/workspace.json
-Obsidian Vault/.obsidian/workspace-mobile.json
+Vault/.obsidian/workspace.json
+Vault/.obsidian/workspace-mobile.json
 .trash/
 
 # Engine-derived browsable index — regenerate with `vault-contrib index`.
-Obsidian Vault/Agent/INDEX.md
+Vault/Agent/INDEX.md
 
 # === Syncthing ===
 .stfolder/

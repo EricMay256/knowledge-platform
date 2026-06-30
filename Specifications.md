@@ -16,7 +16,7 @@ markdown vault with functional code.
 
 ```
 knowledge-platform/                 # one git repo
-  Obsidian Vault/                   # markdown only — Obsidian opens this; Syncthing syncs this
+  Vault/                            # markdown only — Obsidian opens this; Syncthing syncs this
     00 Governance/                  # shared rules for humans AND agents
     Human/                          # durable, human-curated knowledge (protected)
       01 Inbox/AI/                  #   Pipeline B: AI Suggestions (not canonical)
@@ -77,7 +77,7 @@ hand-edited. `schema_version` is 2.
 
 - The engine is **monorepo-aware**: it auto-commits agent contributions against this repo and
   never inits a nested repo. Git history is the audit log (one commit per contribution).
-- Point it at the layer with `KNOWLEDGE_VAULT="<repo>/Obsidian Vault/Agent"` (or `--vault`).
+- Point it at the layer with `KNOWLEDGE_VAULT="<repo>/Vault/Agent"` (or `--vault`).
 - Contribution gate is unchanged: **validate → dedup → decide → write**; `flagged` dupes go to
   `Agent/review/` for human/agent adjudication. The ports remain clean for the eventual
   Postgres/pgvector + MCP swap (`engine/HANDOFF.md`).

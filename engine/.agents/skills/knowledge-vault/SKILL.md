@@ -26,8 +26,8 @@ in a later stage — everything else is stable.
 There is **one shared Agent vault**: the `Agent/` layer of the knowledge-platform repo — a
 directory holding `notes/` (active) and `review/` (flagged dupes awaiting adjudication),
 browsable in Obsidian alongside the human notes. Point the engine at it with the
-`KNOWLEDGE_VAULT` environment variable set to `<repo>/Obsidian Vault/Agent`, or pass
-`--vault "<repo>/Obsidian Vault/Agent"`. (With neither set the CLI falls back to
+`KNOWLEDGE_VAULT` environment variable set to `<repo>/Vault/Agent`, or pass
+`--vault "<repo>/Vault/Agent"`. (With neither set the CLI falls back to
 `~/knowledge-vault`.)
 
 The vault lives **inside the knowledge-platform monorepo**, so the engine is monorepo-aware:

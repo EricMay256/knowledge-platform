@@ -8,10 +8,10 @@ with strong internal separation (markdown vault vs. functional code). Dated 2026
 - **`agentic_knowledge_vault/` → `engine/`.** The Python contribution engine (`vault_contrib`,
   tests, scripts, specs, docs, HANDOFF, skill source) now lives beside the vault, not inside
   it. Functional code is kept out of the synced markdown vault by design.
-- **Live agent vault data → `Obsidian Vault/Agent/notes/`.** The 9 notes from the standalone
+- **Live agent vault data → `Vault/Agent/notes/`.** The 9 notes from the standalone
   `~/knowledge-vault` repo were migrated in and rewritten to the new governance schema (see
   below). `Agent/review/` and `Agent/Promotion Candidates/` were scaffolded.
-- **`Obsidian Vault/Tools/`** (empty placeholder) was removed — the spec's `Tools/` was the
+- **`Vault/Tools/`** (empty placeholder) was removed — the spec's `Tools/` was the
   engine, which is now `engine/`.
 
 ## What was rewritten
@@ -24,7 +24,7 @@ with strong internal separation (markdown vault vs. functional code). Dated 2026
   `service.py`, and the test suite. **97/97 tests pass.**
 - **Engine is now monorepo-aware.** `GitMarkdownStore` no longer inits a nested git repo when
   the vault is inside an existing repo; it auto-commits against the enclosing repo. (New
-  `_enclosing_git_root()`, covered behavior verified against `Obsidian Vault/Agent/`.)
+  `_enclosing_git_root()`, covered behavior verified against `Vault/Agent/`.)
 - **Governance reconciled:** `Vault Philosophy.md` AI policy corrected (`00 Inbox/AI` →
   `01 Inbox/AI`) and expanded with the two-layer / two-pipeline model; `Type Dictionary`,
   `Status Map`, and `Metadata Standard` gained the `Agent Note` type; new
@@ -45,7 +45,7 @@ bundles (outside the tree) at:
 
 - **`~/knowledge-vault` (the old standalone vault) was left intact**, not deleted — its notes
   are now mirrored under `Agent/`. You can archive/remove it once satisfied. **Set
-  `KNOWLEDGE_VAULT="<repo>/Obsidian Vault/Agent"`** so the engine writes to the new location.
+  `KNOWLEDGE_VAULT="<repo>/Vault/Agent"`** so the engine writes to the new location.
 - **Two migrated notes are now content-stale** (they describe the old vault location / engine
   layout): `knowledge-vault-location-and-resolution` and
   `knowledge-vault-stage-a-dedup-keys-on-title-only`. Bodies were not auto-edited (agents
@@ -53,7 +53,7 @@ bundles (outside the tree) at:
 
 ## TODO (operator decisions, intentionally not done)
 
-- **Remote + Syncthing:** re-establish on the `Obsidian Vault/` subfolder (not the repo root)
+- **Remote + Syncthing:** re-establish on the `Vault/` subfolder (not the repo root)
   so engine code isn't replicated to devices. Decide whether to push the combined repo to the
   existing `obsidian-vault` GitHub remote or a fresh one.
 - **Governance still to finalize (your call):** the human vault's own `Tags`-vs-`tags`

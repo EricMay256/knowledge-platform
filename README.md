@@ -8,7 +8,7 @@ operational memory, shared governance, and the tooling that enforces it.
 
 ```
 knowledge-platform/
-  Obsidian Vault/          # the markdown vault — open THIS folder in Obsidian; sync THIS
+  Vault/          # the markdown vault — open THIS folder in Obsidian; sync THIS
     00 Governance/         #   shared rules (humans + agents): philosophy, metadata, policies
     Human/                 #   durable, human-curated knowledge (PARA-style)
       01 Inbox/AI/         #     AI Suggestions queue (Pipeline B) — nothing here is canonical
@@ -20,7 +20,7 @@ knowledge-platform/
     vault_contrib/  tests/  scripts/  specs/  docs/
 ```
 
-**Separation of responsibility:** the `Obsidian Vault/` folder is markdown only — it is what
+**Separation of responsibility:** the `Vault/` folder is markdown only — it is what
 Obsidian opens and what Syncthing replicates. Functional code lives in `engine/` and is kept
 out of the synced vault. Everything is one git repo at the top level.
 
@@ -49,7 +49,7 @@ pip install -e .                 # one runtime dep: pyyaml
 pytest                           # run the suite
 
 # Point the engine at the Agent layer (set once in your environment):
-#   KNOWLEDGE_VAULT="<repo>/Obsidian Vault/Agent"
+#   KNOWLEDGE_VAULT="<repo>/Vault/Agent"
 python -m vault_contrib.cli contribute --by agent:me --title "…" --body "…" --tags a,b
 python -m vault_contrib.cli list
 python -m vault_contrib.cli index    # writes Agent/INDEX.md (gitignored)
@@ -62,5 +62,5 @@ are kept in sync by `engine/scripts/sync_skill.py`.
 
 This repo was consolidated from three earlier repos (the published Obsidian vault, the engine,
 and the live agent vault). Their histories are preserved as git bundles outside the tree.
-Re-establish the GitHub remote and Syncthing **on the `Obsidian Vault/` subfolder** (not the
+Re-establish the GitHub remote and Syncthing **on the `Vault/` subfolder** (not the
 whole repo, so engine code is not synced to devices) when ready — see `MIGRATION-REPORT.md`.
