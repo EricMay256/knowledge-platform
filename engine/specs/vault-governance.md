@@ -37,7 +37,7 @@ Graduated severity so it runs against the existing, pre-enforcement vault:
 | Severity  | Fails a run? | Examples |
 | --------- | ------------ | -------- |
 | `ERROR`   | yes          | unparseable frontmatter, engine field on a Human note, type not allowed in folder, malformed Agent Note |
-| `WARNING` | no           | missing/unknown/drifted Type, invalid Status, lowercase `tags`, scalar-where-list, non-ISO date |
+| `WARNING` | no           | missing/unknown/drifted Type, invalid Status, TitleCase `Tags` (should be reserved-lowercase), scalar-where-list, non-ISO date |
 | `INFO`    | no           | known non-standard keys (`Related`, `Category`, …) |
 
 Three per-folder modes (`folders.yml`): `strict` (canonical Human), `agent` (engine-shape

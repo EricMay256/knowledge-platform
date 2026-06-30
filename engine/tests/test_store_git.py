@@ -139,7 +139,7 @@ def test_engine_output_stays_canonical_after_update(vault):
     path = vault.notes_dir / "auto-memory-vs-knowledge-vault-which-store-to-use.md"
     text = path.read_text(encoding="utf-8")
     assert vf.canonicalize(text) == text
-    assert 'title: "Auto-memory vs knowledge vault: which store to use"\n' in text
+    assert 'Title: "Auto-memory vs knowledge vault: which store to use"\n' in text
     assert "  - serialization\n" in text
 
 

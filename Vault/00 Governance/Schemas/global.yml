@@ -29,10 +29,13 @@ universal_properties:
   LastUpdated:
     type: datetime        # ISO-8601
     required: true
-  Tags:
+  tags:
     type: list_string
     required: false
-  Aliases:
+  aliases:
+    type: list_string
+    required: false
+  cssclasses:
     type: list_string
     required: false
   ReviewFreq:
@@ -50,26 +53,35 @@ universal_properties:
     required: false
 
 # Keys the validator treats as lists when present (scalar -> warning + autofix).
-list_properties: [Tags, Aliases, Parent, DependsOn, SeeAlso, related_ids]
+list_properties: [tags, aliases, cssclasses, Parent, DependsOn, SeeAlso, RelatedIDs]
 
 # Keys the validator treats as ISO-8601 datetimes when present.
 datetime_properties: [CreatedAt, LastUpdated]
 
-# Engine-owned plumbing (lowercase by design). Allowed ONLY on Agent Notes;
-# their presence on a canonical Human note is an ERROR (an Agent note leaked in).
+# Engine-owned plumbing (PascalCase per the standard). Allowed ONLY on Agent
+# Notes; their presence on a canonical Human note is an ERROR (Agent note leaked).
 engine_owned_properties:
-  [title, id, contributed_by, source, related_ids, client_run_id, schema_version]
+  [Title, ID, ContributedBy, Source, RelatedIDs, ClientRunID, SchemaVersion]
 
 # Legacy / drifted keys the linter can safely rewrite to the canonical key.
-# These are the lowercase pre-migration spellings plus the `Review Freq` space.
+# The project standardized on PascalCase property keys, with `tags`/`aliases`/
+# `cssclasses` reserved-lowercase for Obsidian. So TitleCase Tags/Aliases now
+# drift TO lowercase, and the old lowercase engine plumbing drifts TO PascalCase.
 legacy_renames:
-  tags: Tags
-  aliases: Aliases
+  Tags: tags
+  Aliases: aliases
   created_at: CreatedAt
   updated_at: LastUpdated
   status: Status
   note_type: Type
   "Review Freq": ReviewFreq
+  title: Title
+  id: ID
+  contributed_by: ContributedBy
+  source: Source
+  related_ids: RelatedIDs
+  client_run_id: ClientRunID
+  schema_version: SchemaVersion
 
 # De-facto keys that appear widely in the human vault but are not (yet) in the
 # Metadata Standard. The validator reports them as a low-severity WARNING with

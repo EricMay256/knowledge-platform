@@ -28,13 +28,13 @@ Type: Agent Note
 Status: Active
 CreatedAt: 2026-06-25T22:16:45+00:00
 LastUpdated: 2026-06-25T22:16:45+00:00
-Tags:
+tags:
   - x
-title: A note
-id: d636f2fe799c4caa8d9147e38e76641a
-contributed_by: agent:codex
-related_ids: []
-schema_version: 2
+Title: A note
+ID: d636f2fe799c4caa8d9147e38e76641a
+ContributedBy: agent:codex
+RelatedIDs: []
+SchemaVersion: 2
 ---
 body
 """
@@ -47,7 +47,7 @@ def test_valid_agent_note_has_no_errors(gov_schema):
 
 def test_agent_note_wrong_type_and_missing_id_are_errors(gov_schema):
     text = GOOD_AGENT.replace("Type: Agent Note", "Type: Concept").replace(
-        "id: d636f2fe799c4caa8d9147e38e76641a\n", "")
+        "ID: d636f2fe799c4caa8d9147e38e76641a\n", "")
     findings = validate_note(_rec("Agent/notes/a.md", text), gov_schema)
     assert has_errors(findings)
     assert "agent-type" in _rules(findings)
@@ -62,9 +62,9 @@ Type: Concept
 Status: Seed
 CreatedAt: 2026-06-25T00:00:00Z
 LastUpdated: 2026-06-25T00:00:00Z
-id: deadbeefdeadbeefdeadbeefdeadbeef
-contributed_by: agent:codex
-schema_version: 2
+ID: deadbeefdeadbeefdeadbeefdeadbeef
+ContributedBy: agent:codex
+SchemaVersion: 2
 ---
 copied agent body
 """
@@ -114,12 +114,14 @@ body
     assert f and "Reference" in f[0].message
 
 
-def test_legacy_lowercase_tags_key_warns(gov_schema):
+def test_titlecase_tags_key_warns(gov_schema):
+    # Post-standardization, lowercase `tags` is canonical and TitleCase `Tags`
+    # is the legacy drift.
     text = """---
 Type: Reference
 CreatedAt: 2026-06-25T00:00:00Z
 LastUpdated: 2026-06-25T00:00:00Z
-tags:
+Tags:
   - language
 ---
 body
@@ -133,7 +135,7 @@ def test_scalar_in_list_field_and_bad_datetime(gov_schema):
 Type: Reference
 CreatedAt: not-a-date
 LastUpdated: 2026-06-25T00:00:00Z
-Tags: justone
+tags: justone
 ---
 body
 """

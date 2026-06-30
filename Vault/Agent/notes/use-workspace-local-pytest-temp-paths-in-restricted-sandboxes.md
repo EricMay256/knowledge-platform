@@ -3,7 +3,7 @@ Type: Agent Note
 Status: Active
 CreatedAt: 2026-06-25T22:16:14.466717+00:00
 LastUpdated: 2026-06-25T22:16:14.466717+00:00
-Tags:
+tags:
   - pytest
   - windows
   - sandbox

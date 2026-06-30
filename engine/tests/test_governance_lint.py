@@ -23,8 +23,8 @@ def test_canonical_agent_note_is_unchanged(gov_schema):
     meta = {
         "Type": "Agent Note", "Status": "Active",
         "CreatedAt": "2026-06-25T00:00:00+00:00", "LastUpdated": "2026-06-25T00:00:00+00:00",
-        "Tags": ["x"], "title": "T", "id": "deadbeef", "contributed_by": "agent:me",
-        "source": None, "related_ids": [], "client_run_id": None, "schema_version": 2,
+        "tags": ["x"], "Title": "T", "ID": "deadbeef", "ContributedBy": "agent:me",
+        "Source": None, "RelatedIDs": [], "ClientRunID": None, "SchemaVersion": 2,
     }
     text = vf.dump_note(meta, "body\n")
     res = lint_note(_rec("Agent/notes/a.md", text), gov_schema)
@@ -53,7 +53,8 @@ body
     # renamed keys appear with canonical casing in the rewritten text
     assert "Status: Active" in res.new_text
     assert "CreatedAt:" in res.new_text
-    assert "Tags:" in res.new_text
+    assert "Title: t" in res.new_text
+    assert "tags:" in res.new_text          # reserved-lowercase, unchanged
 
 
 def test_dedup_and_list_shape(gov_schema):
@@ -61,11 +62,11 @@ def test_dedup_and_list_shape(gov_schema):
 Type: Reference
 CreatedAt: 2026-06-25T00:00:00Z
 LastUpdated: 2026-06-25T00:00:00Z
-Tags:
+tags:
   - a
   - a
   - b
-Aliases: solo
+aliases: solo
 ---
 body
 """
@@ -81,14 +82,14 @@ def test_canonical_human_note_is_reported_not_writable(gov_schema):
 Type: Reference
 CreatedAt: 2026-06-25T00:00:00Z
 LastUpdated: 2026-06-25T00:00:00Z
-tags:
+Tags:
   - language
 ---
 body
 """
     res = lint_note(_rec("Human/06 Reference/r.md", text), gov_schema)
     assert res.writable is False
-    assert res.changed is True          # there IS drift to fix
+    assert res.changed is True          # TitleCase Tags is drift -> would become tags
     # but it is only reported (INFO), never auto-written
     assert all(f.severity.value == "info" for f in res.findings)
 
@@ -114,13 +115,13 @@ body
 def test_fix_writes_only_writable_notes(gov_schema, temp_vault):
     vault, write = temp_vault
     agent = write("Agent/Promotion Candidates/c.md",
-                  "---\nType: Note\ntags:\n  - a\n---\nbody\n")
+                  "---\nType: Note\nTags:\n  - a\n---\nbody\n")
     human = write("Human/06 Reference/r.md",
-                  "---\nType: Reference\ntags:\n  - a\n---\nbody\n")
+                  "---\nType: Reference\nTags:\n  - a\n---\nbody\n")
 
     schema = GovernanceSchema.load(vault)
     lint_vault(vault, schema, fix=True)
 
-    assert "Tags:" in agent.read_text(encoding="utf-8")        # writable -> fixed
-    assert "tags:" in human.read_text(encoding="utf-8")        # canonical Human -> untouched
-    assert "Tags:" not in human.read_text(encoding="utf-8")
+    assert "tags:" in agent.read_text(encoding="utf-8")        # writable -> fixed to lowercase
+    assert "Tags:" in human.read_text(encoding="utf-8")        # canonical Human -> untouched
+    assert "tags:" not in human.read_text(encoding="utf-8")

@@ -85,5 +85,5 @@ types:
     statuses: [Active, Flagged]
     # Engine-owned; ENFORCED (error-level) because the contribution engine
     # always writes these. See vault_governance.validate._check_agent_note.
-    required: [title, id, contributed_by, schema_version]
-    recommended: [source, related_ids, client_run_id]
+    required: [Title, ID, ContributedBy, SchemaVersion]
+    recommended: [Source, RelatedIDs, ClientRunID]

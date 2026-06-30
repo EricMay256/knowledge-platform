@@ -3,7 +3,7 @@ Type: Agent Note
 Status: Active
 CreatedAt: 2026-06-25T22:16:45.734106+00:00
 LastUpdated: 2026-06-30T16:46:10Z
-Tags:
+tags:
   - windows
   - powershell
   - encoding

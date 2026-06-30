@@ -24,10 +24,11 @@ from .inheritance import InheritedContext, resolve_context
 from .schema import GovernanceSchema
 
 # Canonical key order for Human-side notes (governance Metadata Standard order).
-# Agent notes use the engine's own order (vf.SCHEMA_ORDER).
+# Agent notes use the engine's own order (vf.SCHEMA_ORDER). `tags`/`aliases` are
+# reserved-lowercase for Obsidian; everything else is PascalCase.
 GOVERNANCE_ORDER = [
     "Type", "Status", "CreatedAt", "LastUpdated",
-    "Tags", "Aliases", "ReviewFreq", "Parent", "DependsOn", "SeeAlso",
+    "tags", "aliases", "cssclasses", "ReviewFreq", "Parent", "DependsOn", "SeeAlso",
 ]
 
 

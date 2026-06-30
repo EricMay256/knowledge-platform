@@ -124,19 +124,20 @@ def _check_agent_note(path: str, meta: dict, ctx: InheritedContext,
             out.append(Finding(path, Severity.ERROR, "agent-missing-field",
                                f"engine field '{key}' is required on an Agent Note"))
 
-    if meta.get("id") and not _looks_hex(meta["id"]):
+    note_id = meta.get("ID")
+    if note_id and not _looks_hex(note_id):
         out.append(Finding(path, Severity.WARNING, "agent-id",
-                           f"id {meta['id']!r} does not look like an engine hex id"))
+                           f"ID {note_id!r} does not look like an engine hex id"))
 
-    cb = meta.get("contributed_by")
+    cb = meta.get("ContributedBy")
     if cb and not (str(cb).startswith("agent:") or str(cb).startswith("human:")):
         out.append(Finding(path, Severity.WARNING, "agent-provenance",
-                           f"contributed_by {cb!r} should be namespaced 'agent:<id>' or 'human:<name>'"))
+                           f"ContributedBy {cb!r} should be namespaced 'agent:<id>' or 'human:<name>'"))
 
-    sv = meta.get("schema_version")
+    sv = meta.get("SchemaVersion")
     if sv is not None and sv != 2:
         out.append(Finding(path, Severity.WARNING, "agent-schema-version",
-                           f"schema_version is {sv!r}; current engine schema is 2"))
+                           f"SchemaVersion is {sv!r}; current engine schema is 2"))
     return out
 
 

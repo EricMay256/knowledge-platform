@@ -14,22 +14,25 @@ import yaml
 
 # Governance-standard keys first (human Metadata Standard order), then the
 # engine-owned plumbing the Agent Note type documents as "do not edit".
+# All property keys are PascalCase per the Metadata Standard, except the three
+# Obsidian-reserved keys (`tags`, `aliases`, `cssclasses`) which must stay
+# lowercase for Obsidian's native handling.
 SCHEMA_ORDER = [
     "Type",
     "Status",
     "CreatedAt",
     "LastUpdated",
-    "Tags",
-    "title",
-    "id",
-    "contributed_by",
-    "source",
-    "related_ids",
-    "client_run_id",
-    "schema_version",
+    "tags",
+    "Title",
+    "ID",
+    "ContributedBy",
+    "Source",
+    "RelatedIDs",
+    "ClientRunID",
+    "SchemaVersion",
 ]
 
-LIST_FIELDS = {"Tags", "related_ids"}
+LIST_FIELDS = {"tags", "RelatedIDs"}
 
 
 class _VaultLoader(yaml.SafeLoader):
