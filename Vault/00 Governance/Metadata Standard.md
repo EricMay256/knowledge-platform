@@ -1,6 +1,6 @@
 ---
 CreatedAt: 2026-06-29T19:08:50Z
-LastUpdated: 2026-06-29T22:06:52Z
+LastUpdated: 2026-06-30T16:36:10Z
 ---
 # Metadata Standard
 
@@ -12,12 +12,14 @@ LastUpdated: 2026-06-29T22:06:52Z
 | Status      | Enum            | Defined by type in [[Status Map]]                | Notes with a meaningful lifecycle  | Yes                       |
 | CreatedAt   | DateTime        | ISO-8601                                         | All Notes                          | Yes                       |
 | LastUpdated | DateTime        | ISO-8601                                         | All Notes                          | Yes                       |
-| Tags        | List\<string>   | Freeform                                         | All Notes                          | Optional                  |
-| Aliases     | List\<string>   | Freeform                                         | All Notes                          | Optional                  |
+| tags        | List\<string>   | Freeform                                         | All Notes                          | Optional                  |
+| aliases     | List\<string>   | Freeform                                         | All Notes                          | Optional                  |
 | ReviewFreq  | Enum            | Daily, Weekly, Monthly, Quarterly, Yearly, Never | Notes intended for periodic review | Optional                  |
 | Parent      | List\<WikiLink> | Wikilinked Notes                                 | All Notes                          | No                        |
 | DependsOn   | List\<WikiLink> | Wikilinked Notes                                 | All Notes                          | No                        |
 | SeeAlso     | List\<WikiLink> | Wikilinked Notes                                 | All Notes                          | No                        |
+
+Note that Obsidian defined properties 'tags' and 'aliases' are not capitalized.
 
 ### Type Specific Properties
 
@@ -119,7 +121,9 @@ Some properties are held by only some Types
 #### Agent Note
 
 `Agent/` notes carry the universal properties above (`Type: Agent Note`, `Status`,
+
 `CreatedAt`, `LastUpdated`, `Tags`) **plus** engine-owned plumbing written and read by the
+
 contribution engine. These are **not hand-edited** — the engine assigns and maintains them.
 
 | Property       | Type          | Allowed Values        | Required? | Notes                                            |
