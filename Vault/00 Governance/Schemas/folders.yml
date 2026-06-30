@@ -1,0 +1,143 @@
+# Machine-readable counterpart to `AI Contribution Policy.md` (write policy) plus
+# the layer/canonical/validation-mode routing the validator needs. This is the
+# source of truth for `vault_governance.inheritance` (location-implied context).
+#
+# Globs are vault-root-relative and matched MOST-SPECIFIC-FIRST (the rule with
+# the longest literal prefix wins), so a child rule overrides its parent.
+#
+# Fields:
+#   layer        : governance | human | agent
+#   canonical    : true if notes here are first-class durable knowledge
+#   ai_write     : forbidden | restricted | allowed | engine_only
+#                  (mirrors the AI Contribution Policy write table)
+#   engine_managed : files here are created/maintained by the contribution engine
+#   default_type : the Type a note in this folder is expected to carry
+#   allowed_types: if set, the ONLY types permitted here
+#   validation_mode: strict | agent | loose (see vault_governance.validate)
+#   purpose      : free-text role, surfaced in findings
+
+# A catch-all default applied when no rule matches.
+default:
+  layer: human
+  canonical: false
+  ai_write: restricted
+  validation_mode: loose
+
+folders:
+  "00 Governance/**":
+    layer: governance
+    canonical: true
+    ai_write: restricted
+    validation_mode: loose      # governance docs carry only CreatedAt/LastUpdated
+
+  "Templates/**":
+    layer: governance
+    canonical: false
+    ai_write: restricted
+    validation_mode: loose      # templates contain literal placeholders by design
+
+  "Agent/notes/**":
+    layer: agent
+    canonical: true
+    engine_managed: true
+    allowed_types: ["Agent Note"]
+    ai_write: engine_only
+    validation_mode: agent
+
+  "Agent/review/**":
+    layer: agent
+    canonical: false
+    engine_managed: true
+    allowed_types: ["Agent Note"]
+    ai_write: engine_only
+    validation_mode: agent
+
+  "Agent/Promotion Candidates/**":
+    layer: agent
+    canonical: false
+    engine_managed: false
+    ai_write: allowed
+    purpose: "Promotion Candidate"
+    validation_mode: loose
+
+  "Human/01 Inbox/AI/**":
+    layer: human
+    canonical: false
+    ai_write: allowed
+    purpose: "AI Suggestion"
+    validation_mode: loose
+
+  "Human/01 Inbox/**":
+    layer: human
+    canonical: false
+    ai_write: forbidden
+    validation_mode: loose
+
+  "Human/02 Daily/**":
+    layer: human
+    canonical: true
+    ai_write: forbidden
+    default_type: Daily
+    validation_mode: strict
+
+  "Human/03 Projects/**":
+    layer: human
+    canonical: true
+    ai_write: forbidden
+    default_type: Project
+    validation_mode: strict
+
+  "Human/04 Areas/**":
+    layer: human
+    canonical: true
+    ai_write: forbidden
+    default_type: Area
+    validation_mode: strict
+
+  "Human/05 Decisions/**":
+    layer: human
+    canonical: true
+    ai_write: forbidden
+    default_type: Decision
+    validation_mode: strict
+
+  "Human/06 Reference/**":
+    layer: human
+    canonical: true
+    ai_write: forbidden
+    default_type: Reference
+    validation_mode: strict
+
+  "Human/07 People/**":
+    layer: human
+    canonical: true
+    ai_write: forbidden
+    default_type: Person
+    validation_mode: strict
+
+  "Human/08 Resources/**":
+    layer: human
+    canonical: true
+    ai_write: forbidden
+    default_type: Resource
+    validation_mode: strict
+
+  "Human/09 Systems/**":
+    layer: human
+    canonical: true
+    ai_write: forbidden
+    default_type: System
+    validation_mode: strict
+
+  "Human/17 Concepts/**":
+    layer: human
+    canonical: true
+    ai_write: forbidden
+    default_type: Concept
+    validation_mode: strict
+
+  "Human/**":
+    layer: human
+    canonical: true
+    ai_write: forbidden
+    validation_mode: strict

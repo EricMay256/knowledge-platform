@@ -111,7 +111,7 @@ Some properties are held by only some Types
 | ---------- | ---- | -------------- | --------- |
 | Confidence |      |                |           |
 
-#### Concepts
+#### Concept
 
 | Property      | Type | Allowed Values | Required? |
 | ------------- | ---- | -------------- | --------- |
@@ -138,3 +138,25 @@ contribution engine. These are **not hand-edited** — the engine assigns and ma
 
 > The keys above are intentionally lowercase to mark them as engine plumbing, visually
 > distinct from the curated TitleCase universal properties. Leave them alone in Obsidian.
+
+### Known non-standard / legacy keys
+
+Notes predating this standard use some keys that are not (yet) part of it. The governance
+validator recognizes them and suggests the canonical equivalent rather than reporting a blunt
+"unknown property". Prefer the canonical key in new notes.
+
+| Observed key          | Status        | Canonical equivalent                          |
+| --------------------- | ------------- | --------------------------------------------- |
+| `tags`                | legacy casing | `Tags`                                        |
+| `aliases`             | legacy casing | `Aliases`                                     |
+| `Review Freq`         | legacy casing | `ReviewFreq`                                  |
+| `Related`, `Links`    | non-standard  | `SeeAlso` (or `DependsOn` / `Parent`)         |
+| `Category`            | non-standard  | `Subtype` (Reference/Resource) — no universal eq. |
+| `Owner/Collaborators` | non-standard  | `Owner` + `Collaborators` (separate keys)     |
+
+### Machine-readable schema
+
+This document is mirrored by machine-readable schemas under `00 Governance/Schemas/`
+(`global.yml`, `types.yml`, `folders.yml`), consumed by the `vault_governance` engine package
+for inheritance, validation, and linting. When you change a rule here, update the matching
+schema file in the same commit. See `00 Governance/Schemas/README.md`.

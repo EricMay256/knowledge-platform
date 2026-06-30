@@ -1,0 +1,83 @@
+# Machine-readable counterpart to `Metadata Standard.md` (universal properties).
+#
+# This file is consumed by the `vault_governance` engine package; it is NOT a
+# knowledge note. It lives here so the prose standard and the machine schema sit
+# in one governance layer, at the cost of one non-markdown file in the Vault.
+# See `Schemas/README.md` for the Obsidian/Syncthing exclusion follow-up.
+#
+# Paths in `types.yml` / `folders.yml` are expressed RELATIVE TO THE VAULT ROOT
+# (the folder Obsidian opens), e.g. `Human/03 Projects/**`, so they are stable
+# regardless of where the vault is checked out or what the repo is named.
+
+schema_version: 1
+
+# Universal properties from the Metadata Standard. `required: true` means the
+# property is structurally expected on a typed, canonical note; the validator
+# emits a WARNING (not an error) when one is missing, because the existing vault
+# predates strict enforcement. Errors are reserved for structural breakage
+# (no frontmatter, a list-typed key holding a scalar, an unparseable date).
+universal_properties:
+  Type:
+    type: enum            # values come from types.yml
+    required: true
+  Status:
+    type: enum            # values come from each type's `statuses` in types.yml
+    required: false       # only when the type has a meaningful lifecycle
+  CreatedAt:
+    type: datetime        # ISO-8601
+    required: true
+  LastUpdated:
+    type: datetime        # ISO-8601
+    required: true
+  Tags:
+    type: list_string
+    required: false
+  Aliases:
+    type: list_string
+    required: false
+  ReviewFreq:
+    type: enum
+    values: [Daily, Weekly, Monthly, Quarterly, Yearly, Never]
+    required: false
+  Parent:
+    type: list_wikilink
+    required: false
+  DependsOn:
+    type: list_wikilink
+    required: false
+  SeeAlso:
+    type: list_wikilink
+    required: false
+
+# Keys the validator treats as lists when present (scalar -> warning + autofix).
+list_properties: [Tags, Aliases, Parent, DependsOn, SeeAlso, related_ids]
+
+# Keys the validator treats as ISO-8601 datetimes when present.
+datetime_properties: [CreatedAt, LastUpdated]
+
+# Engine-owned plumbing (lowercase by design). Allowed ONLY on Agent Notes;
+# their presence on a canonical Human note is an ERROR (an Agent note leaked in).
+engine_owned_properties:
+  [title, id, contributed_by, source, related_ids, client_run_id, schema_version]
+
+# Legacy / drifted keys the linter can safely rewrite to the canonical key.
+# These are the lowercase pre-migration spellings plus the `Review Freq` space.
+legacy_renames:
+  tags: Tags
+  aliases: Aliases
+  created_at: CreatedAt
+  updated_at: LastUpdated
+  status: Status
+  note_type: Type
+  "Review Freq": ReviewFreq
+
+# De-facto keys that appear widely in the human vault but are not (yet) in the
+# Metadata Standard. The validator reports them as a low-severity WARNING with
+# the suggested canonical property rather than a blunt "unknown field". A value
+# of `null` means "accepted extra, no canonical equivalent yet".
+known_extra_keys:
+  Related: SeeAlso          # de-facto relation key; standard splits it into SeeAlso/DependsOn/Parent
+  Links: SeeAlso
+  Category: null            # used on Reference notes in lieu of `Subtype`
+  Purpose: null             # used on Area/System notes
+  "Owner/Collaborators": null  # template-ism; standard has Owner + Collaborators separately

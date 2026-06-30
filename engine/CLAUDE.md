@@ -4,6 +4,12 @@ Short, load-bearing rules for working **on this engine**. Full narrative and rat
 in [HANDOFF.md](HANDOFF.md) and `specs/`. This is **Stage A** (the free tier): git + markdown
 + crude string/title dedup. Stage B2 (paid) swaps the storage + dedup behind the same ports.
 
+> **Two packages, one job each.** `vault_contrib` = contributions INTO `Agent/notes`
+> (validate → dedup → decide → write). `vault_governance` = metadata correctness ACROSS the
+> whole `Vault/` (inheritance → validation → linting → ai/* policy). The governance package
+> reuses only `vault_frontmatter` from here; **do not merge it into `vault_contrib`** — keeping
+> it separate is what protects the B2 seams. See `specs/vault-governance.md`.
+
 ## The one rule that must not break: keep the seams
 The package is split along a ports-vs-throwaway line, and **that split is the B2 migration
 plan** (HANDOFF §3):

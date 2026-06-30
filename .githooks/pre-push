@@ -1,0 +1,26 @@
+#!/bin/sh
+# Vault governance pre-push hook.
+# On ai/* branches, blocks a push that edits a forbidden canonical Human area
+# (AI write policy). No-op on every other branch.
+# Enable: git config core.hooksPath .githooks
+set -e
+
+BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+case "$BRANCH" in
+  ai/*) ;;
+  *) exit 0 ;;
+esac
+
+ROOT="$(git rev-parse --show-toplevel)"
+PY="$(command -v python || command -v python3 || true)"
+if [ -z "$PY" ]; then
+  echo "vault-governance: python not found on PATH; skipping hook" >&2
+  exit 0
+fi
+
+BASE="origin/master"
+git rev-parse --verify "$BASE" >/dev/null 2>&1 || BASE="master"
+
+cd "$ROOT/engine"
+echo "vault-governance: enforcing AI write policy on $BRANCH vs $BASE..."
+"$PY" -m vault_governance.cli check-policy --vault ../Vault --base "$BASE" --head HEAD --branch "$BRANCH" --quiet
