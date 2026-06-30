@@ -64,7 +64,7 @@
       "date-created-source-of-truth": "file system",
       "date-modified": true,
       "date-modified-key": "LastUpdated",
-      "date-modified-source-of-truth": "file system",
+      "date-modified-source-of-truth": "user or Linter edits",
       "format": "",
       "convert-to-utc": true,
       "update-on-file-contents-updated": "after 1 minute"
@@ -279,7 +279,7 @@
   "suppressMessageWhenNoChange": true,
   "suppressLintAllFilesConfirmationModal": false,
   "suppressLintAllFilesInFolderConfirmationModal": false,
-  "lintOnFileChange": true,
+  "lintOnFileChange": false,
   "displayLintOnFileChangeNotice": true,
   "settingsConvertedToConfigKeyValues": true,
   "additionalFileExtensions": [],
