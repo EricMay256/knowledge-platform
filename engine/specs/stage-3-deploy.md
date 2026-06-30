@@ -62,8 +62,10 @@ write serialization, semantic dedup, auth, the `Merge` path, any hosted service 
    without re-reading the whole handoff.
 
 ## 4. Concurrency posture (state it explicitly)
+
 Stage A does **not** serialize writes, and that is a deliberate, documented trade-off
 (HANDOFF §5 Phase 3 / §4):
+
 - At small scale, git's optimistic merge absorbs the occasional concurrent contribution.
 - The real hazard is *logical*, not textual: two agents can both pass the dedup check and
   both insert distinct near-duplicates; git merges the two files cleanly while the vault
@@ -73,6 +75,7 @@ Stage A does **not** serialize writes, and that is a deliberate, documented trad
   should treat post-hoc duplicate cleanup as expected, not as a defect.
 
 ## 4a. Human input (first-class contributors + curators)
+
 The vault is **explicitly mixed-contributor**: humans and agents both write to it. Two
 distinct human entry points, with a clear policy on each:
 
@@ -99,6 +102,7 @@ must cover *both* humans and agents (not just "which agents may contribute").
 > CLI proves too coarse for human contributors in practice.
 
 ## 4b. Remote & sandbox contributors (incl. chat clients)
+
 The natural client for Stage A is a **local coding client** (Codex CLI, Claude Code) operating
 on the central `~/knowledge-vault` on disk — real filesystem, live dedup, commit, done. But a
 contributor can also reach the vault **over a git remote**: a clone that pushes back is a
@@ -122,6 +126,7 @@ each other's in-flight notes and create logical duplicates — the documented St
 just exercised harder because every clone is a fork.
 
 **Practical patterns:**
+
 - **Reads** work in a chat client even with no network — upload a snapshot (or use the GitHub
   web view) and the agent greps it. Treat it as a stale read cache; the retrieve-before-write
   half of the skill is fully available.
@@ -135,7 +140,9 @@ just exercised harder because every clone is a fork.
   another concrete pull toward the paid tier (the freemium A→B2 framing).
 
 ## 5. Signal to collect (this is the point of Stage 3)
+
 Instrument the curation loop to answer the Phase-4 flip conditions (HANDOFF §4):
+
 - **`review/` fill rate** — how often it fills and how much adjudication effort it costs.
 - **Crude-dedup miss rate** — how many *true* duplicates string/title match fails to catch
   (found later by hand). This is the single strongest argument for semantic dedup.
@@ -149,6 +156,7 @@ every contribution and flag — mine it rather than building telemetry). These t
 not intuition, decide whether/when B2 is worth its build + ops cost.
 
 ## 6. Acceptance criteria
+
 - A vault repo exists at the chosen location; agents can contribute end-to-end via the
   Stage-2 skill and the result lands in `notes/` or `review/` as expected.
 - The runbook is written and a first adjudication pass on `review/` has been done at least
@@ -158,6 +166,7 @@ not intuition, decide whether/when B2 is worth its build + ops cost.
   contradicts the engine.
 
 ## 7. Exit / next step
+
 Stage 3 has no "completion" — it runs until a **flip condition becomes real** (duplicate
 accretion hurts despite crude dedup; concurrent writes genuinely bite; or invariants need
 to be *enforced* not *instructed*) **and** the collected signal says the vault is worth the

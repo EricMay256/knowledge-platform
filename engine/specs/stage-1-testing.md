@@ -48,6 +48,7 @@ of a concrete backend).
 ## 4. Test cases (priority order)
 
 ### 4.1 `decide()` policy bands — `core.py` (highest value: B2 guard)
+
 Drive with a **stub deduper** (or just hand-built `list[ScoredCandidate]`) so scores are
 fixed inputs; `decide()` is pure.
 
@@ -66,6 +67,7 @@ fixed inputs; `decide()` is pure.
   **top** score selects the band.
 
 ### 4.2 `Policy.__post_init__` — `models.py` (B2 guard)
+
 - Valid: A policy (`flag_at` only); a fully-ordered B2 policy; bands exactly equal
   (`reject_at == merge_at`) is allowed (`>=`, not `>`).
 - Raises `ValueError`: out-of-order present bands (e.g. `merge_at=0.80, flag_at=0.85`);
@@ -73,6 +75,7 @@ fixed inputs; `decide()` is pure.
 - `None` bands are skipped in the ordering check (only "present" bands are compared).
 
 ### 4.3 `validate()` — `core.py`
+
 - Empty/whitespace `title` → error; empty/whitespace `body` → error; blank
   `contributed_by` → error.
 - Tag rules: a blank tag and a non-string tag each error; duplicate tags error.
@@ -81,6 +84,7 @@ fixed inputs; `decide()` is pure.
   `Note.create`; build notes via `Note.create` to mirror the real path.
 
 ### 4.4 `_normalize()` + dedup paths — `dedup_string.py`
+
 - `_normalize` maps case / surrounding & internal whitespace / punctuation to the same
   key: `"Two-phase TICK updates!!"` and `"two phase tick updates"` normalize equal.
 - Exact path (no `fuzzy_threshold`): equal normalized title → `score 1.0`; unrelated →
@@ -89,7 +93,9 @@ fixed inputs; `decide()` is pure.
   titles below the threshold are dropped; output is sorted score-descending.
 
 ### 4.5 `GitMarkdownStore` round-trip — `store_git.py`
+
 Use a `tmp_path` vault (`auto_commit=True`, `init_if_missing=True`).
+
 - `insert` → `get` → equal `Note` (all fields); `iter_notes` yields it.
 - **Horizontal-rule survival (explicit HANDOFF ask):** a body containing a `---` markdown
   horizontal rule on its own line must round-trip byte-for-byte through write→read. This
@@ -103,6 +109,7 @@ Use a `tmp_path` vault (`auto_commit=True`, `init_if_missing=True`).
 - A body with unicode survives (`allow_unicode=True` path).
 
 ### 4.5a Human contributors (first-class input path)
+
 Human input is an explicitly supported, first-class contribution path — not an
 afterthought and not a separate mechanism. The engine is identity-agnostic: `contributed_by`
 is a free-form string, so a human contributes through the **same** `contribute()` /
@@ -110,12 +117,15 @@ CLI path as an agent and gets the same validation + dedup. Provenance is kept le
 **namespacing convention** (`agent:<id>` / `human:<name>`), documented on `Note.contributed_by`
 and in the CLI `--by` help. No new schema field and no enforcement in Stage A (instructed,
 not gated — B2's auth story formalizes identity).
+
 - Test: a `human:<name>` contribution is accepted and round-trips with that provenance.
 - Test: a human re-adding an agent's note is flagged like any other duplicate (humans are
   deduped too).
 
 ### 4.6 Outcome & exit-code contract — `service.py` + `cli.py`
+
 Agents branch on these, so pin them:
+
 - `ContributionService.contribute`: clean note → `status="inserted"`; exact-title dup →
   `status="flagged"` (note in `review/`, not `notes/`); empty body → `status="invalid"`
   (no file written, no commit).
@@ -126,6 +136,7 @@ Agents branch on these, so pin them:
   path rather than leaving it untested.
 
 ## 5. Test infrastructure
+
 - `conftest.py`: a `tmp_path`-backed `GitMarkdownStore` fixture; a `StubDeduper` returning
   preset `ScoredCandidate`s for `decide()`/service tests; a `Note` factory.
 - Keep the stub deduper conformant to the `Deduper` Protocol (it's `@runtime_checkable` —
@@ -134,6 +145,7 @@ Agents branch on these, so pin them:
   root; they may *construct* concrete backends as the system-under-test.
 
 ## 6. Acceptance criteria
+
 - `pytest` green on a fresh checkout after `pip install -r requirements.txt && pip install
   pytest`.
 - HANDOFF quick-start (the three CLI commands) runs successfully against the fixed layout
@@ -143,6 +155,7 @@ Agents branch on these, so pin them:
 - The `---` horizontal-rule round-trip test exists and passes.
 
 ## 6a. Implementation status (done)
+
 Stage 1 is implemented and green: **67 tests pass**; the HANDOFF quick-start reproduces
 `inserted` → `flagged`; package layout reconstructed under `vault_contrib/`. The idempotency
 decision below was resolved as **Option A** (implemented). One behaviour was discovered and
@@ -156,8 +169,10 @@ locked rather than changed:
   signal.
 
 ## 7. Open decision — idempotency key — RESOLVED: Option A (implemented)
+
 HANDOFF §5 flags it: `contribute()` mints a fresh `uuid4` per call, so a **retried**
 contribution becomes a new note that then flags as a duplicate of the first. Options:
+
 - **A — add an optional client-supplied idempotency key now** (mirrors HSS `client_run_id`):
   `contribute(..., client_run_id: str | None = None)`; if a note with that key exists,
   return the prior result as a no-op. Small, schema-affecting (adds a field), and cheapest
@@ -170,6 +185,7 @@ dedicated test, and document it in the schema for Stage 2. **This is the one dec
 Stage 1 that needs your sign-off** — it changes the public note schema.
 
 ## 8. Notes / risks
+
 - Tests shell out to real `git`; require `git` on PATH in CI — document it.
 - Windows: `GitMarkdownStore` uses `subprocess.run(["git", ...])`; verify the suite passes
   on win32 (the dev environment here) as well as POSIX CI.

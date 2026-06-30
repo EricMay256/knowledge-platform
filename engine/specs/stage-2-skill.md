@@ -42,7 +42,9 @@ the skill documents it without updating both").
 ## 4. Content the skill must teach
 
 ### 4.1 The note schema (authoritative, mirrors `models.Note`)
+
 Document the contributable fields and what "good" looks like *for this vault*:
+
 - `title` — short, specific, the searchable handle; titles are the dedup key in Stage A, so
   near-identical titles will flag.
 - `body` — markdown; the durable insight, self-contained enough to be useful out of context.
@@ -59,6 +61,7 @@ Document the contributable fields and what "good" looks like *for this vault*:
   `related_ids`, `schema_version`.
 
 ### 4.2 The contribution procedure
+
 - The canonical call: `python -m vault_contrib.cli contribute --vault <path> --by <agent>
   --title … --body … [--tags a,b] [--source …]` (use the layout/invocation finalized in
   Stage 1). Note `--by`, `--title`, `--body` are required.
@@ -67,18 +70,22 @@ Document the contributable fields and what "good" looks like *for this vault*:
   CLI is the default and simpler path.
 
 ### 4.3 Interpreting `status` (the critical teaching point)
+
 A table the agent branches on. **`flagged` is not a failure** — HANDOFF §5 Phase 2 calls
 this out explicitly:
+
 | status | meaning | agent action |
-|---|---|---|
+|  |  |  |
 | `inserted` | added to `notes/` | done |
 | `linked` | added + linked (B2 only today) | done |
 | `flagged` | possible duplicate; lives in `review/` for later human/agent adjudication | **do not retry or rewrite**; surface that it needs adjudication; consider reading the `similars` to decide if your note adds anything |
 | `rejected` | near-identical (only if a `reject_at` policy is set; not Stage A default) | drop or revise |
 | `invalid` | failed validation | fix per `errors` and retry |
+
 Also map CLI exit codes (`0` = inserted/linked, non-zero otherwise) for shell-driven agents.
 
 ### 4.4 The read path (retrieve before contributing)
+
 - In Stage A, retrieval is **grep/read over `notes/`** — the agent already has these tools.
   Teach: search the vault for the topic before writing, to avoid creating obvious dupes and
   to build on existing notes.
@@ -86,12 +93,14 @@ Also map CLI exit codes (`0` = inserted/linked, non-zero otherwise) for shell-dr
   section is the part most likely to change at B2, so keep it isolated and clearly labelled.
 
 ### 4.5 Conventions / guardrails (from HANDOFF §6)
+
 - Don't hand-edit `review/`; adjudication is a deliberate human/agent curation step.
 - Git history **is** the audit log — don't squash or rewrite it; each contribution is one
   commit.
 - Don't auto-merge duplicates; collisions go to `review/`.
 
 ### 4.6 Human contributors
+
 The skill itself is agent-facing, but the *vault* is shared by humans and agents. State that
 humans contribute through the **same CLI** (`contribute … --by human:<name>`), getting the
 same validation and dedup — so an agent reading the vault should expect human-authored notes
@@ -100,6 +109,7 @@ review-queue adjudication, direct body edits) is operator guidance and lives in 
 runbook, not the skill — but the skill should not imply the vault is agent-only.
 
 ## 5. Acceptance criteria
+
 - The schema documented in `SKILL.md` matches `models.Note` field-for-field (including any
   Stage-1 idempotency field) — verify against the frozen schema, not from memory.
 - Following the skill's procedure verbatim reproduces the Stage-1 behaviours: a clean note
@@ -111,6 +121,7 @@ runbook, not the skill — but the skill should not imply the vault is agent-onl
   engine-owned fields, or treat `flagged` as an error).
 
 ## 5a. Implementation status (done)
+
 Implemented at `.claude/skills/knowledge-vault/SKILL.md`; the skill registers and is
 discoverable. Acceptance verified: schema matches `models.Note` field-for-field
 (incl. `--run-id` ↔ `client_run_id`); the documented commands reproduce `inserted` (clean
@@ -119,8 +130,10 @@ the engine. Vault location is referenced as the `KNOWLEDGE_VAULT` env var (fallb
 `./vault`) pending the Stage-3 decision.
 
 ## 5b. Deployment & cross-vendor sync
+
 The repo skill (`.claude/skills/knowledge-vault/SKILL.md`) is the **single source of truth**;
 deployed copies are kept in sync by `scripts/sync_skill.py`:
+
 - `python scripts/sync_skill.py` — copy source → managed targets (currently the user-level
   Claude skill `~/.claude/skills/knowledge-vault/`, so it reaches every project).
 - `--check` — report drift only, exit 1 if any (suitable for a pre-commit/CI gate).
@@ -130,6 +143,7 @@ deployed copies are kept in sync by `scripts/sync_skill.py`:
 
 **Non-Claude agents.** There is no shared cross-vendor skill location — `SKILL.md` is
 Claude-specific. Reach others by *placing* the `--emit-portable` output:
+
 - **OpenAI Codex CLI** reads `AGENTS.md` (repo-root, plus a merged global `~/.codex/AGENTS.md`).
   Pipe the portable output into one of those.
 - **ChatGPT app / Custom GPT** uses UI-configured *Custom Instructions* / *Instructions* —
@@ -139,6 +153,7 @@ instructions usually hold other content, so overwriting them would be destructiv
 each vendor's convention against your installed version — they move fast.)
 
 ## 6. Open decisions — RESOLVED
+
 - **Skill name / trigger phrasing** → named `knowledge-vault`; description written with
   explicit positive triggers ("save this to the vault" / "check the vault") and negatives
   (no ordinary edits / scratch notes / TODOs). A formal `skill-creator` eval pass is still

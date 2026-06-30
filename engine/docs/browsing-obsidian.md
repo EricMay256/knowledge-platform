@@ -5,6 +5,7 @@ them "vaults") and reads YAML frontmatter `tags` — so the knowledge vault work
 **no conversion**: your existing notes already populate Obsidian's Tags pane and search.
 
 ## Setup (≈1 minute)
+
 1. Install Obsidian (free).
 2. **Open folder as vault** → select `~/knowledge-vault` (or wherever `$KNOWLEDGE_VAULT`
    points).
@@ -15,6 +16,7 @@ That's the whole "non-console browse" — titles, tags, click to open — using 
 you don't have to maintain.
 
 ## Good to know
+
 - **Obsidian shows the filename (the title slug), not the frontmatter `title`.** Slugs are
   readable (`knowledge-vault-location-and-resolution`). If you want the exact title shown,
   the community plugin **Front Matter Title** displays the `title:` field instead.
@@ -24,6 +26,7 @@ you don't have to maintain.
   — tags are the vault's organizing axis.
 
 ## Guardrails (so Obsidian use stays compatible with the engine)
+
 - **Don't create new notes in Obsidian.** Creating a file directly bypasses validation,
   dedup, and id assignment (it lands without frontmatter/id). Always add notes via the
   engine: `vault-contrib contribute …` or the `knowledge-vault` skill.
@@ -33,8 +36,10 @@ you don't have to maintain.
 - **Don't hand-edit `review/`** — adjudication is a deliberate curation step (see the runbook).
 
 ## Vault hygiene (already applied)
+
 The vault carries a `.gitignore` and `.gitattributes` so Obsidian doesn't pollute the audit
 log or churn line endings:
+
 - `.obsidian/` (workspace/config) and `.trash/` are ignored.
 - `INDEX.md` (derived by `vault-contrib index`) is ignored — regenerate on demand, or remove
   it from `.gitignore` if you'd rather commit a browsable snapshot.
