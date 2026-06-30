@@ -284,7 +284,7 @@
   "settingsConvertedToConfigKeyValues": true,
   "additionalFileExtensions": [],
   "foldersToIgnore": [
-    "90 Templates"
+    "Templates"
   ],
   "filesToIgnore": [],
   "linterLocale": "system-default",
