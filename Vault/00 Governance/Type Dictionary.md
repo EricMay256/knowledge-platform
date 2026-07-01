@@ -10,6 +10,7 @@ LastUpdated: 2026-06-29T22:06:52Z
 | Project      | Temporary effort with an end or completed state                                             |
 | Area         | Long term responsibility or area of concern; unbounded                                      |
 | Decision     | Record of why a choice was made over alternatives                                           |
+| MoC          | Map of Content; an index/hub note that organizes links to other notes.                      |
 | Reference    | Content intended to be repeatedly accessed and referenced - "cheat sheet"                   |
 | Person       | Individuals worth knowing, tracking, or documenting                                         |
 | Resource     | Helpful information that imparts some knowledge                                             |
