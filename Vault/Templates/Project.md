@@ -1,13 +1,10 @@
 ---
 Type: Project
 Status: Idea / Active / Waiting / Paused / Complete
-CreatedAt: 2026-06-24T05:28:43Z
-LastUpdated: 2026-06-29T22:06:50Z
-Tags:
-Aliases:
-Related:
-Owner/Collaborators: Me
-Links:
+CreatedAt:
+LastUpdated:
+tags:
+aliases:
 ---
 # {{title}}
 

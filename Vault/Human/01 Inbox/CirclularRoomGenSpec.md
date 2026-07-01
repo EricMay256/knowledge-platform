@@ -1,7 +1,12 @@
 ---
 CreatedAt: 2026-06-28T16:42:05Z
-LastUpdated: 2026-06-29T22:06:52Z
+LastUpdated: 2026-07-01T00:54:29Z
+Type:
+Status:
+tags:
+aliases:
 ---
+
 # Spec: `RoomGraphStage` shape/corridor knobs + destructible-terrain passability
 
 **Audience:** Claude Code (implementation handoff).

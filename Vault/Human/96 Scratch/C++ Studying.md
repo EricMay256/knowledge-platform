@@ -1,7 +1,12 @@
 ---
 CreatedAt: 2026-06-30T17:40:35Z
-LastUpdated: 2026-06-30T18:39:56Z
+LastUpdated: 2026-07-01T03:06:11Z
+Type: Note
+Status:
+tags:
+aliases:
 ---
+
 # C++ Studying
 
 1. unique_ptr vs shared_ptr

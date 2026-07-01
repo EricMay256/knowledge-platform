@@ -1,11 +1,12 @@
 ---
-Type: Runbook
+Type: Reference
 Status:
 CreatedAt: 2026-06-27T23:34:03Z
-LastUpdated: 2026-06-29T22:06:52Z
-Tags:
-Aliases:
-Related:
+LastUpdated: 2026-07-01T01:25:51Z
+tags:
+aliases:
+SeeAlso:
+Subtype: Runbook
 ---
 # Batch Unzip
 

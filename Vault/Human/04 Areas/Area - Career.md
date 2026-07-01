@@ -1,13 +1,13 @@
 ---
 Type: Area
-Status: Ongoing
+Status: Active
 CreatedAt: 2026-06-24T16:20:18Z
-LastUpdated: 2026-06-29T22:06:52Z
-Tags:
-Aliases:
+LastUpdated: 2026-07-01T02:36:15Z
+tags:
+aliases:
 Purpose:
-Review Freq: Monthly
-Related:
+ReviewFreq: Monthly
+SeeAlso:
 ---
 # Area - Career
 

@@ -1,12 +1,12 @@
 ---
-Type: Reference
+Type: Concept
 Status:
 CreatedAt: 2026-06-27T16:10:49Z
-LastUpdated: 2026-06-29T22:06:50Z
-Tags:
-Aliases:
-Related:
-Category:
+LastUpdated: 2026-07-01T01:12:23Z
+tags:
+aliases:
+SeeAlso:
+Subtype:
 ---
 # Timestamps
 

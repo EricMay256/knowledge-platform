@@ -1,13 +1,13 @@
 ---
 Type: Area
-Status: Ongoing
+Status: Active
 CreatedAt: 2026-06-24T16:31:23Z
-LastUpdated: 2026-06-29T22:06:52Z
-Tags:
-Aliases:
+LastUpdated: 2026-07-01T02:08:49Z
+tags:
+aliases:
 Purpose:
-Review Freq: Monthly
-Related:
+ReviewFreq: Monthly
+SeeAlso:
 ---
 # Area - Health
 
@@ -16,10 +16,10 @@ Related:
 ## Concerns
 
 - Cholesterol
-	- Slightly above target baseline
-	- Date: ~April 2024
-	- Remedy: More activity, dietary changes
-	- Status: Unknown, feel better
+- Slightly above target baseline
+- Date: ~April 2024
+- Remedy: More activity, dietary changes
+- Status: Unknown, feel better
 
 ## Goals
 

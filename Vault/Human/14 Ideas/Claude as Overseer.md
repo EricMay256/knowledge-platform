@@ -1,6 +1,10 @@
 ---
 CreatedAt: 2026-06-24T07:37:45Z
-LastUpdated: 2026-06-29T22:06:52Z
+LastUpdated: 2026-07-01T03:06:29Z
+Type: Idea
+Status:
+tags:
+aliases:
 ---
 # Claude as Overseer
 

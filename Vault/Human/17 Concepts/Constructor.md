@@ -1,12 +1,12 @@
 ---
-Type: Reference
+Type: Concept
 Status:
 CreatedAt: 2026-06-25T23:40:01Z
-LastUpdated: 2026-06-30T17:53:13Z
+LastUpdated: 2026-07-01T01:11:53Z
 tags:
 aliases:
   - ctor
-Related:
+SeeAlso:
 Subtype:
 ---
 # Constructor

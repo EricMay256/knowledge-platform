@@ -1,11 +1,10 @@
 ---
 Type: Idea
 Status:
-CreatedAt: 2026-06-25T23:37:06Z
-LastUpdated: 2026-06-29T22:06:50Z
-Tags:
-Aliases:
-Related:
+CreatedAt:
+LastUpdated:
+tags:
+aliases:
 ---
 # {{title}}
 

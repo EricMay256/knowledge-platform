@@ -1,11 +1,11 @@
 ---
 Type: Project
-Status: Idea
+Status: Planned
 CreatedAt: 2026-06-24T06:16:36Z
-LastUpdated: 2026-06-29T22:06:52Z
-Owner/Collaborators: Me
-Related:
-Links: https://github.com/EricMay256/async-mp
+LastUpdated: 2026-07-01T01:01:56Z
+Owner: Me
+SeeAlso:
+SourceRepo: https://github.com/EricMay256/async-mp
 tags:
 ---
 # Async Multiplayer Framework

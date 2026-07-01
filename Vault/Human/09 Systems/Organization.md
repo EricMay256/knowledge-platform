@@ -1,7 +1,12 @@
 ---
 CreatedAt: 2026-06-24T17:27:27Z
-LastUpdated: 2026-06-29T22:06:52Z
+LastUpdated: 2026-07-01T03:06:51Z
+Type: System
+Status:
+tags:
+aliases:
 ---
+
 # Organization
 
 ## Products

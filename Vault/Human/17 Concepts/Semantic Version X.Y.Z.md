@@ -1,12 +1,12 @@
 ---
-Type: Reference
+Type: Concept
 Status:
 CreatedAt: 2026-06-27T15:55:34Z
-LastUpdated: 2026-06-29T22:06:50Z
-Tags:
-Aliases:
-Related:
-Category:
+LastUpdated: 2026-07-01T01:12:30Z
+tags:
+aliases:
+SeeAlso:
+Subtype:
 ---
 # Semantic Version X.Y.Z
 

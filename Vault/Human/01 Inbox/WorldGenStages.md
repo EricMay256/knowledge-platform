@@ -1,7 +1,12 @@
 ---
 CreatedAt: 2026-06-28T16:42:05Z
-LastUpdated: 2026-06-29T22:06:51Z
+LastUpdated: 2026-07-01T00:54:36Z
+Type:
+Status:
+tags:
+aliases:
 ---
+
 # UBear WorldGen — Stage Reference
 
 The parameter-level spec for the generation stages named in

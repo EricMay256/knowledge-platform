@@ -1,12 +1,12 @@
 ---
-Type: Reference
+Type: Concept
 Status:
 CreatedAt: 2026-06-28T01:41:31Z
-LastUpdated: 2026-06-29T22:06:50Z
-Tags:
-Aliases:
-Related:
-Category:
+LastUpdated: 2026-07-01T01:12:32Z
+tags:
+aliases:
+SeeAlso:
+Subtype:
 ---
 # Rule of 3, 5, zero; RAII
 

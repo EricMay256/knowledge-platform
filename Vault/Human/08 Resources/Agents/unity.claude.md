@@ -1,7 +1,12 @@
 ---
 CreatedAt: 2026-06-28T16:51:19Z
-LastUpdated: 2026-06-29T22:06:52Z
+LastUpdated: 2026-07-01T01:18:47Z
+Type: Resource
+Status:
+tags:
+aliases:
 ---
+
 # Unity C\# Development Conventions
 
 This project is a Unity application written in C\#. Follow these conventions unless explicitly directed otherwise. When something is ambiguous, ask before assuming.

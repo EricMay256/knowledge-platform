@@ -2,18 +2,20 @@
 Type: Project
 Status: Complete
 CreatedAt: 2026-06-24T06:17:17Z
-LastUpdated: 2026-06-29T22:06:52Z
-Owner/Collaborators: Me
-Related:
+LastUpdated: 2026-07-01T01:02:01Z
+Owner: Me
+SeeAlso:
   - "[[Project - Job Hunt]]"
   - "[[Area - Career]]"
   - "[[Project - Personal Site + Portfolio]]"
-Links:
+SourceRepo:
 tags:
   - skill
   - json
   - app
+aliases:
 ---
+
 # Application Pipeline
 
 ## Outcome

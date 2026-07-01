@@ -1,17 +1,17 @@
 ---
 Type: Project
 Status: Active
-Owner/Collaborators: Me
-Related:
-  - "[[AI or LLMs]]"
-  - "[[Agent Skills]]"
-  - "[[Databases]]"
-Links:
+CreatedAt: 2026-06-25T05:49:08Z
+LastUpdated: 2026-07-01T02:36:10Z
 tags:
   - data
   - skill
-CreatedAt: 2026-06-25T05:49:08Z
-LastUpdated: 2026-06-29T22:06:52Z
+aliases:
+Owner: Me
+SeeAlso:
+  - "[[AI or LLMs]]"
+  - "[[Agent Skills]]"
+  - "[[Databases]]"
 ---
 # Agentic Knowledge Vault
 

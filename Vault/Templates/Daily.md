@@ -1,10 +1,10 @@
 ---
-Type: Daily Note
+Type: Daily
 Status:
-CreatedAt: 2026-06-24T16:45:48Z
-LastUpdated: 2026-06-29T22:06:50Z
-Tags:
-Aliases:
+CreatedAt:
+LastUpdated:
+tags:
+aliases:
 ---
 # {{date}}
 

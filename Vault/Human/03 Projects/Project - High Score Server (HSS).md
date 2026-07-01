@@ -2,9 +2,9 @@
 Type: Project
 Status: Active
 CreatedAt: 2026-06-24T06:00:43Z
-LastUpdated: 2026-06-29T22:06:52Z
-Owner/Collaborators: Me
-Related:
+LastUpdated: 2026-07-01T00:58:32Z
+Owner: Me
+SeeAlso:
   - "[[Python]]"
   - "[[Databases]]"
   - "[[Area - Career]]"
@@ -13,10 +13,11 @@ Related:
   - "[[C-Sharp]]"
   - "[[C++]]"
   - "[[Unreal]]"
-Links: https://github.com/EricMay256/HighScoreServer
+SourceRepo: https://github.com/EricMay256/HighScoreServer
 tags:
   - json
   - app
+aliases:
 ---
 # High Score Server (HSS)
 

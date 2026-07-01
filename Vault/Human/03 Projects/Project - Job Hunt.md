@@ -2,15 +2,16 @@
 Type: Project
 Status: Active
 CreatedAt: 2026-06-24T06:18:12Z
-LastUpdated: 2026-06-29T22:06:52Z
-Owner/Collaborators:
+LastUpdated: 2026-07-01T00:58:57Z
+Owner:
   - Me
-Related:
+SeeAlso:
   - "[[Area - Career]]"
   - "[[Project - Personal Site + Portfolio]]"
   - "[[Project - Application Pipeline + Tracker]]"
-Links:
+SourceRepo:
 tags:
+aliases:
 ---
 # Job Hunt
 

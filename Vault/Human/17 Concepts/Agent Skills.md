@@ -1,16 +1,16 @@
 ---
-Type: Reference
+Type: Concept
 Status:
 CreatedAt: 2026-06-25T03:27:21Z
-LastUpdated: 2026-06-29T22:06:50Z
-Tags:
+LastUpdated: 2026-07-01T01:12:07Z
+tags:
   - concept
   - ai
   - skill
-Related:
+aliases:
+SeeAlso:
   - "[[AI or LLMs]]"
-Aliases:
-Category:
+Subtype:
 ---
 # Agent Skills
 

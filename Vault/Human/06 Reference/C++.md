@@ -1,17 +1,17 @@
 ---
-Type:
+Type: Reference
 Status:
 CreatedAt: 2026-06-24T16:16:54Z
-LastUpdated: 2026-06-29T22:06:52Z
-Tags:
+LastUpdated: 2026-07-01T01:25:36Z
+tags:
   - language
-Aliases:
-Related:
+aliases:
+SeeAlso:
   - "[[Unreal]]"
   - "[[Python]]"
   - "[[Unity]]"
   - "[[C-Sharp]]"
-Category:
+Subtype:
 ---
 # C++
 

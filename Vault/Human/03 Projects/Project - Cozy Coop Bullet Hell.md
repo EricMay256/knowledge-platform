@@ -2,14 +2,14 @@
 Type: Project
 Status: Active
 CreatedAt: 2026-06-24T06:14:31Z
-LastUpdated: 2026-06-29T22:06:52Z
-Owner/Collaborators: Me
-Related:
+LastUpdated: 2026-07-01T01:01:51Z
+Owner: Me
+SeeAlso:
   - "[[Unity]]"
   - "[[Area - Game Development]]"
-Links:
-  - https://github.com/EricMay256/mcp-test
+SourceRepo: https://github.com/EricMay256/mcp-test
 tags:
+aliases:
 ---
 # Project - Cozy Coop Bullet Hell
 

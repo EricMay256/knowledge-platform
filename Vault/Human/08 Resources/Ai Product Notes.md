@@ -1,13 +1,11 @@
 ---
 CreatedAt: 2026-06-24T16:11:43Z
-LastUpdated: 2026-06-29T22:06:52Z
+LastUpdated: 2026-07-01T03:18:14Z
 Type: Resource
 Status:
-Tags:
-Aliases:
-Related:
-URL:
-Owner:
+tags:
+aliases:
+SeeAlso:
 ---
 # # Ai Product Notes
 

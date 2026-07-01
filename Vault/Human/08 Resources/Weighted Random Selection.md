@@ -2,12 +2,11 @@
 Type: Resource
 Status:
 CreatedAt: 2026-06-27T16:00:53Z
-LastUpdated: 2026-06-29T22:06:52Z
-Tags:
-Aliases:
-Related:
+LastUpdated: 2026-07-01T01:16:22Z
+tags:
+aliases:
+SeeAlso:
 URL: https://github.com/cdanek/KaimiraWeightedList/tree/main
-Owner:
 ---
 # Weighted Random Selection
 

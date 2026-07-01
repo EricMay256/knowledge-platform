@@ -1,7 +1,14 @@
 ---
 CreatedAt: 2026-06-27T19:49:04Z
-LastUpdated: 2026-06-29T22:06:52Z
+LastUpdated: 2026-07-01T02:23:35Z
+Type: Note
+Status:
+tags:
+aliases:
+Parent: 
+  - "[[Project - Minesweeper Madness]]"
 ---
+
 # Adjacency Modes
 
 | 0   | Default              |

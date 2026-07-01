@@ -1,7 +1,12 @@
 ---
 CreatedAt: 2026-06-28T16:42:05Z
-LastUpdated: 2026-06-29T22:06:52Z
+LastUpdated: 2026-07-01T00:54:33Z
+Type:
+Status:
+tags:
+aliases:
 ---
+
 # Spec: Toxic Sewers — walkable hazards + the `HazardProfile` flavor system
 
 **Audience:** Claude Code (implementation handoff).

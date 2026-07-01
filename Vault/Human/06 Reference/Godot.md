@@ -2,12 +2,12 @@
 Type: Reference
 Status:
 CreatedAt: 2026-06-24T17:35:17Z
-LastUpdated: 2026-06-29T22:06:52Z
-Tags:
+LastUpdated: 2026-07-01T01:24:27Z
+tags:
   - app
-Aliases:
-Category:
-Related:
+aliases:
+Subtype:
+SeeAlso:
   - "[[Python]]"
   - "[[C++]]"
   - "[[C-Sharp]]"

@@ -1,7 +1,12 @@
 ---
 CreatedAt: 2026-06-28T16:42:05Z
-LastUpdated: 2026-06-29T22:06:51Z
+LastUpdated: 2026-07-01T00:54:43Z
+Type:
+Status:
+tags:
+aliases:
 ---
+
 # World Structure — Dungeons, Overworld, and Realm Control
 
 A design document and forward spec for building **dungeons** (RotMG-style snake pits,

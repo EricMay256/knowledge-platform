@@ -1,7 +1,26 @@
 ---
 CreatedAt: 2026-06-24T22:54:17Z
-LastUpdated: 2026-06-29T22:06:52Z
+LastUpdated: 2026-07-01T03:18:23Z
+Type: Resource
+Status:
+tags:
+aliases:
 ---
+# Hiking Equipment
+
+## Description
+
+## Use Cases
+
+## Strengths
+
+## Weaknesses
+
+## Notes
+
+## Related
+
+- [[ ]]
 # Hiking Equipment
 
 - Water

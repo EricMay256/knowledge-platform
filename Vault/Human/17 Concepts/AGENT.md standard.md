@@ -1,12 +1,12 @@
 ---
-CreatedAt: 2026-06-24T07:39:41Z
-LastUpdated: 2026-06-29T22:06:50Z
-Type: Reference
+Type: Concept
 Status:
-Tags:
-Aliases:
-Related:
-Category:
+CreatedAt: 2026-06-24T07:39:41Z
+LastUpdated: 2026-07-01T01:12:05Z
+tags:
+aliases:
+SeeAlso:
+Subtype:
 ---
 # AGENT.md
 

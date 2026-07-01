@@ -1,10 +1,11 @@
 ---
-Type:
+Type: Decision
 Status:
 CreatedAt: 2026-06-25T20:39:55Z
-LastUpdated: 2026-06-29T22:06:52Z
-Tags:
-Aliases:
+LastUpdated: 2026-07-01T01:26:26Z
+tags:
+aliases:
+SeeAlso:
 ---
 # Decision: Job Search Resumption
 

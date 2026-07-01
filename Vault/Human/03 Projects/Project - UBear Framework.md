@@ -1,15 +1,13 @@
 ---
 Type: Project
-Status: Idea / Active / Waiting / Paused / Complete
+Status: Inactive
 CreatedAt: 2026-06-27T16:23:14Z
-LastUpdated: 2026-06-29T22:06:52Z
-Owner/Collaborators: Me
-Tags:
-Aliases:
-Related:
-Links:
-  - https://github.com/EricMay256/UBearFramework
-  - https://github.com/EricMay256/UBear
+LastUpdated: 2026-07-01T01:01:34Z
+Owner: Me
+tags:
+aliases:
+SeeAlso:
+SourceRepo: https://github.com/EricMay256/UBearFramework
 ---
 # Project - UBear Framework
 

@@ -1,6 +1,10 @@
 ---
 CreatedAt: 2026-06-28T16:42:05Z
-LastUpdated: 2026-06-29T22:06:52Z
+LastUpdated: 2026-07-01T00:54:08Z
+Type:
+Status:
+tags:
+aliases:
 ---
 # Async / Asymmetric Exchange System — Implementation Spec
 

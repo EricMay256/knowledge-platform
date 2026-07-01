@@ -1,12 +1,10 @@
 ---
 Type: Resource
 Status:
-CreatedAt: 2026-06-25T23:39:09Z
-LastUpdated: 2026-06-29T22:06:50Z
-Tags:
-Aliases:
-Related:
-URL:
+CreatedAt:
+LastUpdated:
+tags:
+aliases:
 Owner:
 ---
 # {{title}}

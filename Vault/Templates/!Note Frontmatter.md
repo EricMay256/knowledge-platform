@@ -1,9 +1,9 @@
 ---
-Type: Runbook
+Type:
 Status:
 CreatedAt:
 LastUpdated:
 tags:
 aliases:
 ---
-# Runbook
+

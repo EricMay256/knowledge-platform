@@ -1,17 +1,18 @@
 ---
 Type: Project
-Status: Paused
+Status: Inactive
 CreatedAt: 2026-06-24T06:17:17Z
-LastUpdated: 2026-06-29T22:06:52Z
-Owner/Collaborators:
+LastUpdated: 2026-07-01T00:57:54Z
+Owner:
   - Me
-Related:
+SeeAlso:
   - "[[Area - Game Development]]"
   - "[[Area - Career]]"
   - "[[C-Sharp]]"
   - "[[Unity]]"
-Links:
+SourceRepo:
 tags:
+aliases:
 ---
 # Firefighter Sim
 

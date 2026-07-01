@@ -1,7 +1,12 @@
 ---
 CreatedAt: 2026-06-28T16:42:05Z
-LastUpdated: 2026-06-29T22:06:50Z
+LastUpdated: 2026-07-01T00:54:39Z
+Type:
+Status:
+tags:
+aliases:
 ---
+
 # UBear WorldGen — Implementation TODO
 
 Tracks building out the generation system specced in

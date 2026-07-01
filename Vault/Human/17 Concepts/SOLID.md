@@ -1,12 +1,12 @@
 ---
 CreatedAt: 2026-06-27T15:42:11Z
-LastUpdated: 2026-06-29T22:06:50Z
-Type: Reference
+LastUpdated: 2026-07-01T01:12:27Z
+Type: Concept
 Status:
-Tags:
-Aliases:
-Related:
-Category: Coding Concept
+tags:
+aliases:
+SeeAlso:
+Subtype: Coding Concept
 ---
 # SOLID
 

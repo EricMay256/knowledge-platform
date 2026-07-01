@@ -2,14 +2,12 @@
 Type: Project
 Status: Complete
 CreatedAt: 2026-06-24T06:14:31Z
-LastUpdated: 2026-06-29T22:06:52Z
-Owner/Collaborators:
-  - Me
-Related:
+LastUpdated: 2026-07-01T00:55:55Z
+tags:
+Owner: Me
+SeeAlso:
   - "[[Unity]]"
   - "[[Area - Game Development]]"
-Links:
-tags:
 ---
 # Minesweeper Madness
 

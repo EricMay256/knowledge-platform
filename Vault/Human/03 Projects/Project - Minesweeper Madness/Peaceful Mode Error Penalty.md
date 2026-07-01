@@ -1,7 +1,14 @@
 ---
 CreatedAt: 2026-06-27T19:54:13Z
-LastUpdated: 2026-06-29T22:06:52Z
+LastUpdated: 2026-07-01T02:25:01Z
+Type: Note
+Status:
+tags:
+aliases:
+Parent: 
+  - "[[Project - Minesweeper Madness]]"
 ---
+
 # Peaceful Mode Error Penalty
 
 mapTime += CurDetonations * Mathf.Pow(10, Mathf.Min(3, CurDetonations))

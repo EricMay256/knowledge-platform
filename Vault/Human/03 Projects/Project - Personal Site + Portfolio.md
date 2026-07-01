@@ -2,19 +2,19 @@
 Type: Project
 Status: Complete
 CreatedAt: 2026-06-24T05:30:36Z
-LastUpdated: 2026-06-29T22:06:52Z
-Owner/Collaborators:
-  - Me
-Related:
+LastUpdated: 2026-07-01T02:37:18Z
+tags:
+aliases:
+Owner: Me
+SeeAlso:
   - "[[Project - Job Hunt]]"
   - "[[Area - Career]]"
   - "[[Web Development]]"
-Links:
-  - http://ericmay256.github.io/
-  - https://github.com/EricMay256/ericmay256.github.io
-tags:
+SourceRepo: https://github.com/EricMay256/ericmay256.github.io
 ---
 # Personal Portfolio Site
+
+Live Hosted on Github Pages: http://ericmay256.github.io/
 
 ## Outcome
 

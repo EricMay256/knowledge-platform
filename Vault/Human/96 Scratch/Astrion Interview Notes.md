@@ -1,7 +1,12 @@
 ---
 CreatedAt: 2026-06-30T18:39:56Z
-LastUpdated: 2026-06-30T18:45:10Z
+LastUpdated: 2026-07-01T03:06:07Z
+Type: Note
+Status:
+tags:
+aliases:
 ---
+
 # Astrion Interview Notes
 
 ## Availability
