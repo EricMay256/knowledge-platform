@@ -34,7 +34,11 @@ folders:
     layer: governance
     canonical: false
     ai_write: restricted
-    validation_mode: loose      # templates contain literal placeholders by design
+    # Templates hold {{date}}/<% %> placeholders that are not valid frontmatter
+    # until a plugin expands them, so they are skipped entirely at the scan layer
+    # (vault_governance.frontmatter_scan._SKIP_DIRS). This rule is retained only
+    # for the ai-write policy; validation_mode below is not exercised.
+    validation_mode: loose
 
   "Agent/notes/**":
     layer: agent
@@ -85,7 +89,7 @@ folders:
     canonical: true
     ai_write: forbidden
     default_type: Project
-    allowed_types: [Project, MoC, Note, Decision]
+    allowed_types: [Project, Decision]
     validation_mode: strict
 
   "Human/04 Areas/**":
@@ -93,7 +97,6 @@ folders:
     canonical: true
     ai_write: forbidden
     default_type: Area
-    allowed_types: [Area, MoC, Note]
     validation_mode: strict
 
   "Human/05 Decisions/**":
@@ -129,6 +132,13 @@ folders:
     canonical: true
     ai_write: forbidden
     default_type: System
+    validation_mode: strict
+    
+  "Human/11 Meetings/**":
+    layer: human
+    canonical: true
+    ai_write: forbidden
+    default_type: Meeting
     validation_mode: strict
 
   "Human/17 Concepts/**":

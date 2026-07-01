@@ -152,6 +152,25 @@ def test_type_not_allowed_in_agent_folder_is_error(gov_schema):
     assert "agent-type" in _rules(findings)
 
 
+def test_universal_types_exempt_from_folder_rules(gov_schema):
+    # Note/MoC declare folder_globs ['**'] -> allowed in any folder, exempt from
+    # both allowed_types (error) and default_type mismatch (warning).
+    def _fm(typ):
+        return (f"---\nType: {typ}\nCreatedAt: 2026-06-25T00:00:00Z\n"
+                f"LastUpdated: 2026-06-25T00:00:00Z\n---\nbody\n")
+
+    # An allowed_types folder: a universal type is not an error...
+    note_in_projects = validate_note(_rec("Human/03 Projects/x.md", _fm("Note")), gov_schema)
+    assert "type-not-allowed" not in _rules(note_in_projects)
+    # ...but a non-universal, non-listed type still is (regression guard).
+    person_in_projects = validate_note(_rec("Human/03 Projects/y.md", _fm("Person")), gov_schema)
+    assert "type-not-allowed" in _rules(person_in_projects)
+
+    # A default_type-only folder: a universal type raises no folder mismatch.
+    moc_in_reference = validate_note(_rec("Human/06 Reference/z.md", _fm("MoC")), gov_schema)
+    assert "type-folder-mismatch" not in _rules(moc_in_reference)
+
+
 # --- loose mode -----------------------------------------------------------
 
 def test_loose_mode_skips_governance_drift(gov_schema):
@@ -177,6 +196,17 @@ def test_no_frontmatter_severity_depends_on_canonicality(gov_schema):
     loose = validate_note(_rec("Human/01 Inbox/AI/x.md", "just a body, no frontmatter"), gov_schema)
     assert _by_rule(canon, "no-frontmatter")[0].severity is Severity.WARNING
     assert _by_rule(loose, "no-frontmatter")[0].severity is Severity.INFO
+
+
+def test_templates_dir_is_skipped(temp_vault, gov_schema):
+    # Templates carry {{date}}/<% %> placeholders that are not valid frontmatter
+    # until a plugin expands them; the scan layer must skip them entirely so they
+    # never produce findings (here: an unparseable-YAML {{date}} value).
+    vault, write = temp_vault
+    write("Templates/Daily.md",
+          "---\nType: Daily\nCreatedAt: {{date:YYYY-MM-DD}}T00:00:00Z\n---\n# {{date}}\n")
+    findings = validate_vault(vault, gov_schema)
+    assert not any(f.path.startswith("Templates/") for f in findings)
 
 
 # --- whole-vault integration ---------------------------------------------

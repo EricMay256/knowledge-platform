@@ -10,7 +10,7 @@ import json
 
 from pathlib import Path
 
-from vault_contrib.cli import _resolve_vault, main, render_index
+from vault_contrib.cli import _repo_agent_vault, _resolve_vault, main, render_index
 from vault_contrib.models import Note
 
 
@@ -66,12 +66,36 @@ def test_resolve_vault_uses_env_var(monkeypatch):
     assert _resolve_vault(None) == Path("/env/vault")
 
 
-def test_resolve_vault_default_expands_home(monkeypatch):
+def test_resolve_vault_default_prefers_repo_agent_layer(monkeypatch):
     monkeypatch.delenv("KNOWLEDGE_VAULT", raising=False)
     resolved = _resolve_vault(None)
-    # Falls back to ~/knowledge-vault with ~ expanded (no literal "~" segment).
-    assert resolved == Path.home() / "knowledge-vault"
+    repo = _repo_agent_vault()
+    if repo is not None:
+        # In-repo: default resolves to the Agent layer, not ~/knowledge-vault.
+        assert resolved == repo and resolved.name == "Agent"
+    else:
+        assert resolved == Path.home() / "knowledge-vault"
     assert "~" not in str(resolved)
+
+
+def test_index_missing_notes_dir_fails_loudly(tmp_path, capsys):
+    # --vault pointing above the Agent layer (no notes/) must error, not silently
+    # write an empty index or auto-create a stray notes/ dir.
+    code = main(["index", "--vault", str(tmp_path)])
+    err = capsys.readouterr().err
+    assert code == 1
+    assert "no 'notes/' directory" in err
+    assert not (tmp_path / "INDEX.md").exists()
+    assert not (tmp_path / "notes").exists()
+
+
+def test_index_missing_notes_dir_hints_agent_layer(tmp_path, capsys):
+    # If an Agent/ layer sits alongside, the error suggests it.
+    (tmp_path / "Agent" / "notes").mkdir(parents=True)
+    code = main(["index", "--vault", str(tmp_path)])
+    err = capsys.readouterr().err
+    assert code == 1
+    assert "Agent" in err
 
 
 def test_contribute_uses_env_var_when_vault_omitted(tmp_path, capsys, monkeypatch):

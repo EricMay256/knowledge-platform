@@ -1,12 +1,18 @@
----
+<%*
+if (!tp.user || typeof tp.user.newNote !== "function") {
+  throw new Error("Templater user scripts not loaded — reload Templater "
+    + "(see '00 Governance/Templater Scripts/README').");
+}
+const n = await tp.user.newNote(tp, "Project");
+%>---
 Type: Project
-Status: Idea / Active / Waiting / Paused / Complete
-CreatedAt:
-LastUpdated:
+Status: <% n.status %>
+CreatedAt: <% n.created %>
+LastUpdated: <% n.created %>
 tags:
 aliases:
----
-# {{title}}
+<% n.extraProps %>---
+# <% n.title %>
 
 ## Outcome
 
@@ -46,7 +52,7 @@ Not included
 
 | Date       | Decision | Why |
 | ---------- | -------- | --- |
-| YYYY-MM-DD |          |     |
+| YYYY-MM-DD |          |     |
 
 ## Risks / open questions
 
@@ -62,3 +68,7 @@ Not included
 ## Activity log
 
 - YYYY-MM-DD —
+<%*
+if (n.folder) { await tp.file.move(`${n.folder}/${n.title}`); }
+else { await tp.file.rename(n.title); }
+%>

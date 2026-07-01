@@ -37,15 +37,46 @@ from .service import ContributionService
 from .store_git import GitMarkdownStore, _deserialize
 from . import vault_frontmatter as vf
 
-# The central vault all projects point at when --vault is omitted: the
-# KNOWLEDGE_VAULT env var, else ~/knowledge-vault. Resolved (~ and $VARs
-# expanded) so a literal "~" directory can never be created.
+# When --vault is omitted the CLI resolves, in order: $KNOWLEDGE_VAULT, then the
+# Agent layer of the enclosing knowledge-platform repo (engine/../Vault/Agent),
+# then ~/knowledge-vault. Values are ~ and $VAR expanded so a literal "~" dir is
+# never created.
 DEFAULT_VAULT = "~/knowledge-vault"
+
+_VAULT_HELP = ("path to the Agent vault (default: $KNOWLEDGE_VAULT, else the "
+               "repo's Vault/Agent, else ~/knowledge-vault)")
+
+
+def _repo_agent_vault() -> Path | None:
+    """The Agent layer of the enclosing repo, if this package lives in one.
+    engine/vault_contrib/cli.py -> parents[2] == repo root."""
+    candidate = Path(__file__).resolve().parents[2] / "Vault" / "Agent"
+    return candidate if candidate.exists() else None
 
 
 def _resolve_vault(path: str | None) -> Path:
-    raw = path or os.environ.get("KNOWLEDGE_VAULT") or DEFAULT_VAULT
-    return Path(os.path.expandvars(os.path.expanduser(raw)))
+    if path:
+        return Path(os.path.expandvars(os.path.expanduser(path)))
+    env = os.environ.get("KNOWLEDGE_VAULT")
+    if env:
+        return Path(os.path.expandvars(os.path.expanduser(env)))
+    repo = _repo_agent_vault()
+    return repo if repo is not None else Path(os.path.expanduser(DEFAULT_VAULT))
+
+
+def _require_notes_dir(vault: Path) -> Path | None:
+    """Return the vault's ``notes/`` dir, or None (after printing a hint) when it
+    is missing — the usual sign that --vault points one level too high (at the
+    repo ``Vault/`` root rather than ``Vault/Agent``). Read commands call this so
+    a wrong path fails loudly instead of silently creating an empty ``notes/``."""
+    notes_dir = vault / "notes"
+    if notes_dir.is_dir():
+        return notes_dir
+    msg = f"error: no 'notes/' directory under {vault}"
+    if (vault / "Agent" / "notes").is_dir():
+        msg += f"\nhint: point --vault at the Agent layer: --vault {vault / 'Agent'}"
+    print(msg, file=sys.stderr)
+    return None
 
 
 def _build_service(args: argparse.Namespace) -> ContributionService:
@@ -86,7 +117,10 @@ def _cmd_contribute(args: argparse.Namespace) -> int:
 
 
 def _cmd_list(args: argparse.Namespace) -> int:
-    store = GitMarkdownStore(_resolve_vault(args.vault), auto_commit=False)
+    vault = _resolve_vault(args.vault)
+    if _require_notes_dir(vault) is None:
+        return 1
+    store = GitMarkdownStore(vault, auto_commit=False)
     wanted = set(args.tag or [])  # AND semantics across repeated --tag
     for note in store.iter_notes():
         if wanted and not wanted <= set(note.tags):
@@ -120,11 +154,13 @@ def render_index(entries: list[tuple[str, Note]]) -> str:
 
 def _cmd_index(args: argparse.Namespace) -> int:
     vault = _resolve_vault(args.vault)
-    store = GitMarkdownStore(vault, auto_commit=False)
+    notes_dir = _require_notes_dir(vault)
+    if notes_dir is None:
+        return 1
     entries = [
         (path.relative_to(vault).as_posix(),
          _deserialize(path.read_text(encoding="utf-8")))
-        for path in sorted(store.notes_dir.glob("*.md"))
+        for path in sorted(notes_dir.glob("*.md"))
     ]
     out = vault / "INDEX.md"
     out.write_text(render_index(entries), encoding="utf-8")
@@ -195,8 +231,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     c = sub.add_parser("contribute", help="add a note (with dedup)")
     c.add_argument("--vault", default=None,
-                   help="path to the vault repo (default: $KNOWLEDGE_VAULT, "
-                        "else ~/knowledge-vault)")
+                   help=_VAULT_HELP)
     c.add_argument("--title", required=True)
     c.add_argument("--body", required=True)
     c.add_argument("--by", required=True,
@@ -215,22 +250,19 @@ def build_parser() -> argparse.ArgumentParser:
 
     l = sub.add_parser("list", help="list active notes in the vault")
     l.add_argument("--vault", default=None,
-                   help="path to the vault repo (default: $KNOWLEDGE_VAULT, "
-                        "else ~/knowledge-vault)")
+                   help=_VAULT_HELP)
     l.add_argument("--tag", action="append",
                    help="only notes with this tag; repeat for AND")
     l.set_defaults(func=_cmd_list)
 
     i = sub.add_parser("index", help="write a tag-grouped INDEX.md to the vault")
     i.add_argument("--vault", default=None,
-                   help="path to the vault repo (default: $KNOWLEDGE_VAULT, "
-                        "else ~/knowledge-vault)")
+                   help=_VAULT_HELP)
     i.set_defaults(func=_cmd_index)
 
     n = sub.add_parser("normalize", help="canonicalize active note frontmatter")
     n.add_argument("--vault", default=None,
-                   help="path to the vault repo (default: $KNOWLEDGE_VAULT, "
-                        "else ~/knowledge-vault)")
+                   help=_VAULT_HELP)
     n.add_argument("--check", action="store_true",
                    help="report non-canonical notes without rewriting")
     n.set_defaults(func=_cmd_normalize)

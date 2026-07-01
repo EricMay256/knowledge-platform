@@ -59,9 +59,9 @@
     },
     "yaml-timestamp": {
       "enabled": true,
-      "date-created": true,
+      "date-created": false,
       "date-created-key": "CreatedAt",
-      "date-created-source-of-truth": "file system",
+      "date-created-source-of-truth": "frontmatter",
       "date-modified": true,
       "date-modified-key": "LastUpdated",
       "date-modified-source-of-truth": "user or Linter edits",

@@ -15,10 +15,12 @@ import argparse
 import json
 import subprocess
 import sys
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 from .findings import Finding, Severity, has_errors, sort_key
+from .frontmatter_scan import parse_note_text, scan_vault
 from .lint import LintResult, lint_vault
+from .moc import render_moc
 from .policy import check_policy
 from .schema import GovernanceSchema
 from .validate import validate_vault
@@ -146,6 +148,44 @@ def cmd_check_policy(args: argparse.Namespace) -> int:
     return 1 if has_errors(findings) else 0
 
 
+def cmd_moc(args: argparse.Namespace) -> int:
+    vault = _resolve_vault(args.vault)
+    rel = args.path.strip("/\\").replace("\\", "/")
+    target = vault / rel
+    if not target.is_dir():
+        sys.exit(f"error: not a folder: {target}")
+
+    out = Path(args.out).resolve() if args.out else (target / "INDEX.md")
+    try:
+        out_rel = out.relative_to(vault.resolve()).as_posix()
+    except ValueError:
+        out_rel = None
+
+    prefix = rel + "/"
+    records = [
+        rec for rec in scan_vault(vault)
+        if rec.rel_path.startswith(prefix)
+        and "INDEX" not in PurePosixPath(rec.rel_path).name
+        and rec.rel_path != out_rel
+    ]
+
+    # Preserve an existing index's CreatedAt so only LastUpdated churns.
+    created = None
+    if out.exists():
+        prev = parse_note_text(out.read_text(encoding="utf-8"))
+        if prev.meta:
+            created = prev.meta.get("CreatedAt") or None
+
+    text = render_moc(rel, records, created=created)
+    if args.dry_run:
+        print(text)
+        return 0
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(text, encoding="utf-8")
+    print(f"Wrote {out} ({len(records)} notes).")
+    return 0
+
+
 # --------------------------------------------------------------------------
 # parser
 # --------------------------------------------------------------------------
@@ -182,6 +222,15 @@ def build_parser() -> argparse.ArgumentParser:
     c.add_argument("--head", default="HEAD")
     c.add_argument("--branch", help="branch name (default: current)")
     c.set_defaults(func=cmd_check_policy)
+
+    m = sub.add_parser("moc", parents=[common],
+                       help="generate a Map-of-Content index note for a folder")
+    m.add_argument("--path", default="Human",
+                   help="vault-relative folder to index (default: Human)")
+    m.add_argument("--out", help="output file (default: <path>/INDEX.md)")
+    m.add_argument("--dry-run", action="store_true",
+                   help="print the index instead of writing it")
+    m.set_defaults(func=cmd_moc)
     return p
 
 
