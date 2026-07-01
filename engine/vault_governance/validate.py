@@ -180,7 +180,7 @@ def _check_human_canonical(path: str, meta: dict, ctx: InheritedContext,
         out.append(Finding(path, Severity.ERROR, "type-not-allowed",
                            f"Type '{canon}' is not allowed in this folder "
                            f"(allowed: {ctx.allowed_types})"))
-    elif canon and ctx.default_type and canon != ctx.default_type:
+    elif canon and ctx.default_type and canon != ctx.default_type and canon not in ctx.allowed_types:
         out.append(Finding(path, Severity.WARNING, "type-folder-mismatch",
                            f"Type '{canon}' does not match the folder's default '{ctx.default_type}'"))
 

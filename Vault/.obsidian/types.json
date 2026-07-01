@@ -10,6 +10,10 @@
     "CreatedAt": "datetime",
     "LastUpdated": "datetime",
     "Date Read": "date",
-    "Date": "date"
+    "Date": "date",
+    "DateRead": "date",
+    "Owner": "text",
+    "SourceRepo": "text",
+    "Parent": "multitext"
   }
 }

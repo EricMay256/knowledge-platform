@@ -24,12 +24,21 @@ types:
   Project:
     folder_globs: ["Human/03 Projects/**"]
     statuses: [Planned, Active, Blocked, Complete, Inactive, Cancelled]
-    recommended: [Priority, Goal, Area, SourceRepository, Owner, Collaborators]
+    recommended: [Priority, Goal, Area, SourceRepo, Owner, Collaborators]
 
   Area:
     folder_globs: ["Human/04 Areas/**"]
     statuses: [Active, On Hold, Archived]
-    recommended: [Mission]
+    recommended: [Purpose]
+
+  MoC:
+    folder_globs: ["**"]
+    statuses: [Proposed, Accepted, Superceded]
+    recommended: [Outcome, Date, Context, Alternatives, Consequences]
+
+  Note:
+    folder_globs: ["**"]
+    recommended: [Parent]
 
   Decision:
     folder_globs: ["Human/05 Decisions/**"]
@@ -62,7 +71,7 @@ types:
   Concept:
     folder_globs: ["Human/17 Concepts/**"]
     statuses: [Seed, Draft, Evergreen, Archived]
-    recommended: [Domain, ParentConcept]
+    recommended: [Domain, ParentConcept, Subtype]
     aliases: [Concepts, Evergreen]
 
   Summary Note:

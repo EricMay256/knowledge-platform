@@ -54,6 +54,12 @@ Some properties are held by only some Types
 | Alternatives |      |                |           |
 | Consequences |      |                |           |
 
+#### Map of Content
+
+| Property   | Type | Allowed Values | Required? |
+| ---------- | ---- | -------------- | --------- |
+|            |      |                |           |
+
 #### Reference
 
 | Property | Type | Allowed Values                     | Required? |
@@ -119,6 +125,13 @@ Some properties are held by only some Types
 | ------------- | ---- | -------------- | --------- |
 | Domain        |      |                |           |
 | ParentConcept |      |                |           |
+| Subtype       |      |                |           |
+
+#### Note
+
+| Property      | Type     | Allowed Values | Required? |
+| ------------- | -------- | -------------- | --------- |
+| Parent        | Wikilink |                | No        |
 
 #### Agent Note
 
@@ -153,7 +166,7 @@ validator recognizes them and suggests the canonical equivalent rather than repo
 | `Aliases`               | legacy casing | `aliases` (Obsidian-reserved, lowercase)      |
 | `Review Freq`           | legacy casing | `ReviewFreq`                                  |
 | lowercase plumbing (`id`, `title`, `schema_version`, …) | legacy casing | PascalCase (`ID`, `Title`, `SchemaVersion`, …) |
-| `Related`, `Links`      | non-standard  | `SeeAlso` (or `DependsOn` / `Parent`)         |
+| `Related`, `Links`, `URL` | non-standard  | `SeeAlso` (or `DependsOn` / `Parent`)         |
 | `Category`              | non-standard  | `Subtype` (Reference/Resource) — no universal eq. |
 | `Owner/Collaborators`   | non-standard  | `Owner` + `Collaborators` (separate keys)     |
 

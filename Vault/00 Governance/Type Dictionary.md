@@ -17,5 +17,6 @@ LastUpdated: 2026-06-29T22:06:52Z
 | Summary Note | Summarization of a separate work, like a book or article.                                   |
 | Meeting      | Record of a meeting including time, location, participants, purpose, and content.           |
 | Idea         | An undeveloped concept, possibility, or hypothesis awaiting evaluation or refinement.       |
+| Note         | A generic note that is suitable for varied uses; often used for individual logs for parent. |
 | Concept      | Durable knowledge or abstract data; separate from any specific implementation               |
 | Agent Note   | Durable, transferable insight contributed to the `Agent/` layer by an agent or human via the contribution engine. Flat, tag-organized, dedup-gated. Engine-managed — not hand-authored. |
