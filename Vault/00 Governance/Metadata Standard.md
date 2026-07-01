@@ -42,7 +42,7 @@ Some properties are held by only some Types
 
 | Property | Type | Allowed Values | Required? |
 | -------- | ---- | -------------- | --------- |
-| Purpose  | enum |                |           |
+| Purpose  | Enum |                |           |
 
 #### Decision
 
