@@ -33,8 +33,6 @@ types:
 
   MoC:
     folder_globs: ["**"]
-    statuses: [Proposed, Accepted, Superceded]
-    recommended: [Outcome, Date, Context, Alternatives, Consequences]
 
   Note:
     folder_globs: ["**"]

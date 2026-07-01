@@ -34,7 +34,7 @@ Some properties are held by only some Types
 | Priority         | Enum            |                | Yes       |
 | Goal             | Enum            |                | Yes       |
 | Area             | WikiLink        |                | No        |
-| SourceRepository | URL             |                | No        |
+| SourceRepo       | URL             |                | No        |
 | Owner            | WikiLink        |                | No        |
 | Collaborators    | List\<WikiLink> |                | No        |
 
@@ -42,7 +42,7 @@ Some properties are held by only some Types
 
 | Property | Type | Allowed Values | Required? |
 | -------- | ---- | -------------- | --------- |
-| Mission  | enum |                |           |
+| Purpose  | enum |                |           |
 
 #### Decision
 
@@ -166,7 +166,8 @@ validator recognizes them and suggests the canonical equivalent rather than repo
 | `Aliases`               | legacy casing | `aliases` (Obsidian-reserved, lowercase)      |
 | `Review Freq`           | legacy casing | `ReviewFreq`                                  |
 | lowercase plumbing (`id`, `title`, `schema_version`, …) | legacy casing | PascalCase (`ID`, `Title`, `SchemaVersion`, …) |
-| `Related`, `Links`, `URL` | non-standard  | `SeeAlso` (or `DependsOn` / `Parent`)         |
+| `Related`, `Links`      | non-standard  | `SeeAlso` (or `DependsOn` / `Parent`)         |
+| `URL` (outside Resource/Summary Note) | non-standard | `SeeAlso` — `URL` is a first-class property on Resource and Summary Note |
 | `Category`              | non-standard  | `Subtype` (Reference/Resource) — no universal eq. |
 | `Owner/Collaborators`   | non-standard  | `Owner` + `Collaborators` (separate keys)     |
 
