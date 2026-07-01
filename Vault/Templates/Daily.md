@@ -1,8 +1,8 @@
 ---
 Type: Daily
-Status:
-CreatedAt:
-LastUpdated:
+Status: Logged
+CreatedAt: {{date:YYYY-MM-DD}}T00:00:00Z
+LastUpdated: {{date:YYYY-MM-DD}}T00:00:00Z
 tags:
 aliases:
 ---

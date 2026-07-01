@@ -30,6 +30,13 @@ class TypeSchema:
     def has_lifecycle(self) -> bool:
         return bool(self.statuses)
 
+    @property
+    def universal(self) -> bool:
+        """A type declared to live anywhere (``folder_globs: ["**"]``, e.g. Note
+        and MoC). Universal types are exempt from a folder's ``allowed_types`` and
+        ``default_type`` checks, so they need not be listed in every folder rule."""
+        return "**" in self.folder_globs
+
 
 @dataclass(frozen=True)
 class FolderRule:

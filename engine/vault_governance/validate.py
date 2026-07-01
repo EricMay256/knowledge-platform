@@ -14,7 +14,11 @@ graduated so the tool is usable against the existing (pre-enforcement) vault:
 Validation runs in one of three modes, chosen per folder in ``folders.yml``:
     strict  canonical Human notes — full checks.
     agent   Agent/notes & Agent/review — engine-shape enforcement.
-    loose   inboxes, templates, governance, promotion queue — structural only.
+    loose   inboxes, governance, promotion queue — structural only.
+
+`Templates/` and `Schemas/` are not notes and are skipped entirely at the scan
+layer (see ``frontmatter_scan._SKIP_DIRS``), so template placeholders never
+produce findings.
 """
 
 from __future__ import annotations
@@ -175,14 +179,17 @@ def _check_human_canonical(path: str, meta: dict, ctx: InheritedContext,
         out.append(Finding(path, Severity.WARNING, "drifted-type",
                            f"Type {raw_type!r} is a drifted spelling of '{canon}'"))
 
-    # Type vs folder
-    if canon and ctx.allowed_types and canon not in ctx.allowed_types:
-        out.append(Finding(path, Severity.ERROR, "type-not-allowed",
-                           f"Type '{canon}' is not allowed in this folder "
-                           f"(allowed: {ctx.allowed_types})"))
-    elif canon and ctx.default_type and canon != ctx.default_type and canon not in ctx.allowed_types:
-        out.append(Finding(path, Severity.WARNING, "type-folder-mismatch",
-                           f"Type '{canon}' does not match the folder's default '{ctx.default_type}'"))
+    # Type vs folder. Universal types (folder_globs ['**'], e.g. Note/MoC) may
+    # live in any folder, so they are exempt from allowed_types / default_type.
+    canon_ts = schema.types.get(canon) if canon else None
+    if canon and not (canon_ts and canon_ts.universal):
+        if ctx.allowed_types and canon not in ctx.allowed_types:
+            out.append(Finding(path, Severity.ERROR, "type-not-allowed",
+                               f"Type '{canon}' is not allowed in this folder "
+                               f"(allowed: {ctx.allowed_types})"))
+        elif ctx.default_type and canon != ctx.default_type and canon not in ctx.allowed_types:
+            out.append(Finding(path, Severity.WARNING, "type-folder-mismatch",
+                               f"Type '{canon}' does not match the folder's default '{ctx.default_type}'"))
 
     # Status valid for type
     ts = schema.type_for(raw_type)

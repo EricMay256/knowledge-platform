@@ -3,10 +3,9 @@ if (!tp.user || typeof tp.user.newNote !== "function") {
   throw new Error("Templater user scripts not loaded — reload Templater "
     + "(see '00 Governance/Templater Scripts/README').");
 }
-// "Service" is a schema alias of System — created as a System note.
-const n = await tp.user.newNote(tp, "System", { titlePrompt: "Service name" });
+const n = await tp.user.newNote(tp, "Concept");
 %>---
-Type: System
+Type: Concept
 Status: <% n.status %>
 CreatedAt: <% n.created %>
 LastUpdated: <% n.created %>
@@ -15,15 +14,21 @@ aliases:
 <% n.extraProps %>---
 # <% n.title %>
 
-## Overview
+> One crisp sentence stating the idea.
 
-## Interfaces
+## Explanation
 
-## Dependencies
+## Why it matters
 
-## Operations
+## Nuances / boundaries
 
-## Notes
+## Connections
+
+- [[ ]]
+
+## Sources
+
+-
 <%*
 if (n.folder) { await tp.file.move(`${n.folder}/${n.title}`); }
 else { await tp.file.rename(n.title); }

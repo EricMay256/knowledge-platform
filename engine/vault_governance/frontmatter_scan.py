@@ -17,8 +17,11 @@ from vault_contrib import vault_frontmatter as vf
 # A top-level YAML key at column 0 (not a list item, not a comment).
 _KEY_RE = re.compile(r"^([^\s#:][^:]*):", re.MULTILINE)
 
-# Directories never worth scanning for notes.
-_SKIP_DIRS = {".git", ".obsidian", ".trash", "Assets", "Schemas"}
+# Directories never worth scanning for notes. `Schemas` and `Templates` hold
+# machine/authoring files, not knowledge notes: templates in particular carry
+# `{{date}}`/`<% %>` placeholders that are not valid frontmatter until a plugin
+# expands them, so scanning them would produce spurious findings.
+_SKIP_DIRS = {".git", ".obsidian", ".trash", "Assets", "Schemas", "Templates"}
 
 
 @dataclass

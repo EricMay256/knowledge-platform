@@ -1,7 +1,9 @@
 # Machine-readable counterpart to `Type Dictionary.md` + `Status Map.md`.
 #
 # Each type carries:
-#   folder_globs : vault-root-relative globs where notes of this type live.
+#   folder_globs : vault-root-relative globs where notes of this type live. A type
+#                  whose globs are `["**"]` (e.g. Note, MoC) is UNIVERSAL — allowed
+#                  in any folder, exempt from a folder's allowed_types/default_type.
 #   statuses     : the Status Map values valid for the type ([] = no lifecycle).
 #   required     : type-specific properties the validator EXPECTS (warning if
 #                  missing). Deliberately conservative — most type-specific
@@ -66,6 +68,11 @@ types:
     recommended: [Purpose, Components, Interfaces, Owner]
     aliases: [Services, Service]
 
+  Meeting:
+    folder_globs: ["Human/11 Meetings/**"]
+    statuses: [Scheduled, Held, Cancelled]
+    recommended: [Date, Attendees, Location, Organizer]
+
   Concept:
     folder_globs: ["Human/17 Concepts/**"]
     statuses: [Seed, Draft, Evergreen, Archived]
@@ -76,11 +83,6 @@ types:
     folder_globs: []
     statuses: []
     recommended: [Source, Author, Published, URL, DateRead]
-
-  Meeting:
-    folder_globs: []
-    statuses: [Scheduled, Held, Cancelled]
-    recommended: [Date, Attendees, Location, Organizer]
 
   Idea:
     folder_globs: []
