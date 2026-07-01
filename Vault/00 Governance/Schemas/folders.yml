@@ -85,7 +85,7 @@ folders:
     canonical: true
     ai_write: forbidden
     default_type: Project
-    allowed_types: [Project, MoC, Note]
+    allowed_types: [Project, MoC, Note, Decision]
     validation_mode: strict
 
   "Human/04 Areas/**":
