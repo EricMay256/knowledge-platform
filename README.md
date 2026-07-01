@@ -4,6 +4,39 @@ A single repository for a multi-layer personal knowledge system serving **both h
 AI agents**, with a clear separation of responsibility between curated knowledge, agent
 operational memory, shared governance, and the tooling that enforces it.
 
+```mermaid
+flowchart LR
+    H["Humans"]
+    A["AI Agents"]
+
+    H -- "write" --> HV["Human Vault (PARA)"]
+    H -- "browse" --> HV
+    H -- "browse" --> AV
+
+    A -- "query" --> MCP["MCP / Query Interface"]
+    A -- "contribute" --> CE["Contribution Engine<br/>validate -> dedup -> decide"]
+
+    CE -. "sync dedup check" .-> LVI["Live Vector Index<br/>(write-time only)"]
+    CE -- "clean" --> AV["Agent Vault (notes/)"]
+    CE -- "near-duplicate" --> RV["review/ (adjudication)"]
+
+    H -- "adjudicate" --> RV
+    RV -- "resolved" --> AV
+    AV -- "promote" --> HV
+
+    HV --> KC["Knowledge Compiler (batch)"]
+    AV --> KC
+
+    KC --> GDB["Graph DB"]
+    KC --> EMB["Embeddings"]
+    KC --> GV["Generated Views"]
+
+    GDB --> MCP
+    EMB --> MCP
+    GV --> MCP
+    MCP --> A
+```
+
 ## Layout
 
 ```
