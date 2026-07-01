@@ -27,7 +27,7 @@ you don't have to maintain.
 
 ## Guardrails (so Obsidian use stays compatible with the engine)
 
-- **Don't create new notes in Obsidian.** Creating a file directly bypasses validation,
+- **Don't create new notes for the AI Vault in Obsidian.** Creating a file directly bypasses validation,
   dedup, and id assignment (it lands without frontmatter/id). Always add notes via the
   engine: `vault-contrib contribute …` or the `knowledge-vault` skill.
 - **Editing an existing note's body is fine** — keep the frontmatter intact. Obsidian doesn't

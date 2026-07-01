@@ -17,7 +17,7 @@ SeeAlso:
 
 ## Related
 
-[[Personal Project Index]],
+[[Personal Project INDEX]],
 
 ## Outcome
 

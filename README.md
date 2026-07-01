@@ -39,7 +39,7 @@ flowchart LR
 
 ## Layout
 
-```
+```Structure
 knowledge-platform/
   Vault/          # the markdown vault — open THIS folder in Obsidian; sync THIS
     00 Governance/         #   shared rules (humans + agents): philosophy, metadata, policies

@@ -11,7 +11,7 @@ aliases:
 
 ## Now
 
-- [[Personal Project Index]]
+- [[Personal Project INDEX]]
 
 ## Active areas
 
