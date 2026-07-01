@@ -2,9 +2,8 @@
 Type: Project
 Status: Active
 CreatedAt: 2026-06-24T05:23:56Z
-LastUpdated: 2026-07-01T00:59:23Z
-Owner:
-  - Me
+LastUpdated: 2026-07-01T17:47:23Z
+Owner: Me
 SeeAlso:
 SourceRepo:
 tags:
