@@ -27,7 +27,7 @@ def current_branch(repo_root: Path) -> str:
 
 
 def is_ai_branch(branch: str) -> bool:
-    return branch.startswith("ai/")
+    return branch.startswith(("ai/", "ai-"))
 
 
 def changed_files(repo_root: Path, base: str, head: str) -> list[str]:
