@@ -27,7 +27,7 @@ folders:
   "00 Governance/**":
     layer: governance
     canonical: true
-    ai_write: restricted
+    ai_write: forbidden
     validation_mode: loose      # governance docs carry only CreatedAt/LastUpdated
 
   "Templates/**":
