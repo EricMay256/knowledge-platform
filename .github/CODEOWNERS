@@ -1,0 +1,9 @@
+# .github/CODEOWNERS
+# Auto-requests review from the owner on changes to the governance schemas.
+# (Notification only — require_code_owner_review is off, so it doesn't block.)
+#
+# NOTE: the folder is "00 Governance" — with a space. CODEOWNERS splits each
+# line on whitespace (pattern then owners), so the literal path breaks parsing.
+# We glob around the space instead; "00*" matches "00 Governance" and nothing
+# else, since it's the only 00-prefixed folder.
+/Vault/00*/ @EricMay256
